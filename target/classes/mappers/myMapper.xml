@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="UserDAO">
+	<select id="iD_Confirm" parameterType="String" resultType="String">
+		select * from user where user_id = #{param1}
+	</select>
+	<insert id="userInsert" parameterType="model.UserDTO">
+		insert into user (user_id,
+		name, password)
+		values(#{user_id}, #{name}, #{password})
+	</insert>
+
+	<select id="userLogin" parameterType="model.UserDTO" resultType="model.UserDTO">
+		select * from user where user_id = #{user_id} and password =
+		#{password}
+	</select>
+	<select id="projectView" resultType="model.ProjectVO">
+		SELECT * FROM PROJECT 
+		ORDER BY Project_id DESC
+		LIMIT 5
+	</select>
+	<select id="postView" resultType="model.PostVO">
+		SELECT * FROM POST ORDER BY
+		POST_ID DESC
+	</select>
+	<insert id="post_Write">
+		insert into post (post_subject, user_id, date,
+		post_detail, name) values(#{post_subject}, #{user_id}, curdate(),
+		#{post_detail}, #{name})
+	</insert>
+	<select id="getProjectName" parameterType="String" resultType="String">
+		select project_name from project where project_id = #{param1}
+	</select>
+
+	<update id="post_count" parameterType="int">
+		update post
+		set hits = hits + 1
+		where post_id = #{param1}
+	</update>
+	<select id="post_Detail" parameterType="int" resultType="model.PostVO">
+		select *
+		from post where post_id = #{param1}
+
+	</select>
+	<update id="post_Modify" parameterType="model.PostVO" >
+		update post
+		set post_subject = #{post_subject}, date =
+		curdate(), post_detail = #{post_detail}
+		where post_id = #{post_id}
+	</update>
+	
+	<delete id = "post_Delete" parameterType="String">
+		delete from post
+		where post_id = #{post_id}
+	</delete>
+	<insert id ="project_Add" parameterType="model.ProjectVO">
+	insert into project (project_name,
+		project_detail)
+		values(#{project_name}, #{project_detail})
+	</insert>
+</mapper>
