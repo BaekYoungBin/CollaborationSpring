@@ -1,4 +1,4 @@
-package handler;
+package com.spring.grouping.chat.handler;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -10,16 +10,16 @@ import org.springframework.web.socket.WebSocketSession;
 import org.springframework.web.socket.handler.TextWebSocketHandler;
 
 
-public class EchoHandler extends TextWebSocketHandler {
+public class ChatHandler extends TextWebSocketHandler {
 	
-	private static final Logger logger = LoggerFactory.getLogger(EchoHandler.class);
+	private static final Logger logger = LoggerFactory.getLogger(ChatHandler.class);
 	/**
 	 * 접속관련 Event Method
 	 * param WebSocketSession 접속한 사용자
 	 */
 	private List<WebSocketSession> connectedUsers;
 	
-	public EchoHandler(){
+	public ChatHandler(){
 		System.out.println("에코핸들러가 불립니다.");
 		connectedUsers = new ArrayList<WebSocketSession>();
 	}

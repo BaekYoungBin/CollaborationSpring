@@ -1,4 +1,4 @@
-package model;
+package com.spring.grouping.user.service;
 
 import java.util.List;
 
@@ -6,84 +6,76 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.spring.grouping.board.domain.BoardVO;
+import com.spring.grouping.group.domain.GroupVO;
+import com.spring.grouping.user.domain.UserDTO;
+
 @Service("service")
-public class UserServiceImpl implements UserService{
+public class UserService{
 
 
 	@Autowired
 	SqlSession sqlsession;
 
 
-	@Override
 	public String ID_Confirm(String user_id) {
 		// TODO Auto-generated method stub
 		return sqlsession.selectOne("iD_Confirm", user_id);
 	}
 
-	@Override
 	public int userInsert(UserDTO user) {
 		// TODO Auto-generated method stub
 		return sqlsession.insert("userInsert", user);	
 		}
 
-	@Override
 	public UserDTO userLogin(UserDTO user) {
 		// TODO Auto-generated method stub
 		return sqlsession.selectOne("userLogin", user);
 	}
 
-	@Override
-	public List<ProjectVO> ProjectView() {
+	public List<GroupVO> ProjectView() {
 		// TODO Auto-generated method stub
 		return sqlsession.selectList("projectView");
 	}
 
-	@Override
-	public List<PostVO> PostView() {
+	public List<BoardVO> PostView() {
 		// TODO Auto-generated method stub
 		return sqlsession.selectList("postView");
 	}
 
-	@Override
-	public int Post_Write(PostVO pv) {
+	public int Post_Write(BoardVO pv) {
 		// TODO Auto-generated method stub
 		return sqlsession.insert("post_Write", pv);
 	}
 
-	@Override
 	public String getProjectName(String project_id) {
 		// TODO Auto-generated method stub
 		return sqlsession.selectOne("getProjectName", project_id);
 	}
 
-	@Override
-	public PostVO Post_Detail(String post_id) {
+	public BoardVO Post_Detail(String post_id) {
 		System.out.println(post_id);
 		// TODO Auto-generated method stub
 		return sqlsession.selectOne("post_Detail", post_id);
 	}
 
-	@Override
 	public int Post_count(String post_id) {
 		// TODO Auto-generated method stub
 		
 		return sqlsession.update("post_count", post_id);
 	}
 
-	@Override
-	public int Post_Modify(PostVO pv) {
+	public int Post_Modify(BoardVO pv) {
 		// TODO Auto-generated method stub
 		return sqlsession.update("post_Modify", pv);
 	}
 
-	@Override
 	public int Post_Delete(String post_id) {
 		// TODO Auto-generated method stub
 		return sqlsession.delete("post_Delete", post_id);
 	}
 
-	@Override
-	public int Project_Add(ProjectVO pv) {
+	public int Project_Add(GroupVO pv) {
 		// TODO Auto-generated method stub
 		return sqlsession.insert("project_Add", pv);
 	}

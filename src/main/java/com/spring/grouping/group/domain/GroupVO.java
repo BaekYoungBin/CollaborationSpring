@@ -1,6 +1,6 @@
-package model;
+package com.spring.grouping.group.domain;
 
-public class ProjectVO {
+public class GroupVO {
 
 	private int project_id;
  	private String project_name;
@@ -8,7 +8,7 @@ public class ProjectVO {
  	
  	
  	
-	public ProjectVO() {
+	public GroupVO() {
 
 	}
 	public int getProject_id() {
@@ -29,13 +29,13 @@ public class ProjectVO {
 	public void setProject_detail(String project_detail) {
 		this.project_detail = project_detail;
 	}
-	public ProjectVO(int project_id, String project_name, String project_detail) {
+	public GroupVO(int project_id, String project_name, String project_detail) {
 
 		this.project_id = project_id;
 		this.project_name = project_name;
 		this.project_detail = project_detail;
 	}
-	public ProjectVO(String project_name, String project_detail) {
+	public GroupVO(String project_name, String project_detail) {
 
 		this.project_name = project_name;
 		this.project_detail = project_detail;

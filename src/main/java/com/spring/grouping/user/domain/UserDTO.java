@@ -1,4 +1,4 @@
-package model;
+package com.spring.grouping.user.domain;
 
 public class UserDTO {
 

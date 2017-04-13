@@ -38,7 +38,7 @@
 		<beans:property name="username" value="root" />
 		<beans:property name="password" value="hrhr" />
 	</beans:bean>
-	<context:component-scan base-package="com.spring.grouping, mappers, model, handler" />
+	<context:component-scan base-package="com.spring.grouping.common.controller1, mappers, model, handler" />
 	
 	
 	

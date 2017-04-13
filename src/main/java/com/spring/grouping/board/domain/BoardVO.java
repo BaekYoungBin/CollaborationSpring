@@ -1,8 +1,8 @@
-package model;
+package com.spring.grouping.board.domain;
 
 import java.sql.Date;
 
-public class PostVO {
+public class BoardVO {
 
 
 	int post_id;
@@ -54,7 +54,7 @@ public class PostVO {
 	public void setName(String user_name) {
 		this.name = user_name;
 	}
-	public PostVO(int post_id, String post_subject, String user_id, Date date, int hits, String post_detail,
+	public BoardVO(int post_id, String post_subject, String user_id, Date date, int hits, String post_detail,
 			String name) {
 
 		this.post_id = post_id;
@@ -65,13 +65,13 @@ public class PostVO {
 		this.post_detail = post_detail;
 		this.name = name;
 	}
-	public PostVO(String post_subject, String user_id, String post_detail, String name) {
+	public BoardVO(String post_subject, String user_id, String post_detail, String name) {
 		this.post_subject = post_subject;
 		this.user_id = user_id;
 		this.post_detail = post_detail;
 		this.name = name;
 	}
-	public PostVO() {
+	public BoardVO() {
 		// TODO Auto-generated constructor stub
 	}
 

@@ -1,4 +1,4 @@
-package model;
+package com.spring.grouping.user.domain;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -11,6 +11,9 @@ import javax.sql.DataSource;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+
+import com.spring.grouping.board.domain.BoardVO;
+import com.spring.grouping.group.domain.GroupVO;
 
 @Repository("dao")
 public class UserDAOImpl implements UserDAO {
@@ -96,10 +99,10 @@ public class UserDAOImpl implements UserDAO {
 	}
 
 	@Override
-	public ArrayList<ProjectVO> ProjectView() {
+	public ArrayList<GroupVO> ProjectView() {
 		// TODO Auto-generated method stub
 
-		ArrayList<ProjectVO> pv = new ArrayList<ProjectVO>();
+		ArrayList<GroupVO> pv = new ArrayList<GroupVO>();
 		
 		sql = "select * from project";
 		
@@ -109,7 +112,7 @@ public class UserDAOImpl implements UserDAO {
 			rs = ps.executeQuery();
 			
 			while(rs.next()){
-				pv.add(new ProjectVO(rs.getInt(1), rs.getString(2), rs.getString(3)));			
+				pv.add(new GroupVO(rs.getInt(1), rs.getString(2), rs.getString(3)));			
 			}
 			System.out.println(pv.size());
 		} catch (SQLException e) {
@@ -123,8 +126,8 @@ public class UserDAOImpl implements UserDAO {
 	}
 
 	@Override
-	public ArrayList<PostVO> PostView() {
-		ArrayList<PostVO> pv = new ArrayList<PostVO>();
+	public ArrayList<BoardVO> PostView() {
+		ArrayList<BoardVO> pv = new ArrayList<BoardVO>();
 		sql = "select * from post order by post_id desc";
 		
 		try {
@@ -133,7 +136,7 @@ public class UserDAOImpl implements UserDAO {
 			rs = ps.executeQuery();
 			
 			while(rs.next()){
-				pv.add(new PostVO(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getDate(4), rs.getInt(5), rs.getString(6), rs.getString(7)));			
+				pv.add(new BoardVO(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getDate(4), rs.getInt(5), rs.getString(6), rs.getString(7)));			
 			}
 			System.out.println(pv.size());
 		} catch (SQLException e) {
@@ -145,7 +148,7 @@ public class UserDAOImpl implements UserDAO {
 
 	@SuppressWarnings("null")
 	@Override
-	public int Post_Write(PostVO pv) {
+	public int Post_Write(BoardVO pv) {
 		// TODO Auto-generated method stub
 		int count = 0;
 		HttpSession s = null;
@@ -157,7 +160,7 @@ public class UserDAOImpl implements UserDAO {
 			ps.setString(1, pv.getPost_subject());
 			ps.setString(2, (String) s.getAttribute("user_id"));
 			
-			ps.setString(3, pv.post_detail);
+			ps.setString(3, pv.getPost_detail());
 			ps.setString(4,(String) s.getAttribute("name"));
 			count = ps.executeUpdate();
 			/*
