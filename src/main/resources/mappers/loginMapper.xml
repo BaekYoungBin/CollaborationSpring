@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.spring.grouping.common.mapper.LoginMapper">
+	<select id="confirmUserIdDuplicate" parameterType="String" resultType="String">
+		select * from user where userId = #{param1}
+	</select>
+
+	<select id="userLogin" parameterType="com.spring.grouping.user.domain.UserVO" resultType="String">
+		select PK_USER_ID from T_USER_INFO where PK_USER_ID = #{userId} and USER_PWD =
+		#{password}
+	</select>
+	<insert id="userInsert" parameterType="com.spring.grouping.user.domain.UserVO">		
+			insert into T_USER_INFO (PK_USER_ID, USER_PWD, USER_NAME,
+		USER_EMAIL) values(#{userId}, #{password}, #{username},
+		#{email})	
+	</insert>
+</mapper>

@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.spring.grouping.board.domain.BoardVO;
 import com.spring.grouping.group.domain.GroupVO;
-import com.spring.grouping.user.domain.UserDTO;
+import com.spring.grouping.user.domain.UserVO;
 
 @Service("service")
 public class UserService{
@@ -23,12 +23,12 @@ public class UserService{
 		return sqlsession.selectOne("iD_Confirm", user_id);
 	}
 
-	public int userInsert(UserDTO user) {
+	public int userInsert(UserVO user) {
 		// TODO Auto-generated method stub
 		return sqlsession.insert("userInsert", user);	
 		}
 
-	public UserDTO userLogin(UserDTO user) {
+	public String userLogin(UserVO user) {
 		// TODO Auto-generated method stub
 		return sqlsession.selectOne("userLogin", user);
 	}

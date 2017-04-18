@@ -1,4 +1,4 @@
-package com.spring.grouping.chat.handler;
+package com.spring.grouping.handler;
 
 import java.util.ArrayList;
 import java.util.List;

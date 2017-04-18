@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<title>GETTING STARTED WITH BRACKETS</title>
+<meta name="description"
+	content="An interactive getting started guide for Brackets.">
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+	integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
+	crossorigin="anonymous">
+<link rel="stylesheet" href="main.css">
+</head>
+
+<body>
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h1 class="text-center">Register</h1>
+			</div>
+			<div class="modal-body">
+				<form class="modal-body_register" action='/login.html' method="GET">
+					<fieldset>
+
+						<div class="control-group">
+							<!-- Username -->
+							<label class="control-label" for="userId">ID</label>
+							<div class="controls">
+								<input type="text" id="userId" name="userId"
+									placeholder="희망하는 id를 입력하세요" class="input-xlarge">
+								<p class="help-block">ID는 필수입력값 입니다.</p>
+							</div>
+						</div>
+
+
+						<div class="control-group">
+							<label class="control-label" for="password">비밀번호</label>
+							<div class="controls">
+								<input type="password" id="password" name="password"
+									placeholder="********" class="input-xlarge">
+								<p class="help-block">비밀번호는 적어도 4자 이상 입력해주세요.</p>
+							</div>
+						</div>
+
+						<div class="control-group">
+							<label class="control-label" for="password_confirm">비밀번호 확인
+							</label>
+							<div class="controls">
+								<input type="password" id="password_confirm"
+									name="password_confirm" placeholder="********" class="input-xlarge">
+								<p class="help-block">비밀번호가 일치하지 않습니다.</p>
+							</div>
+						</div>
+						
+						<div class="control-group">
+							<!-- E-mail -->
+							<label class="control-label" for="usr">이름</label>
+							<div class="controls">
+								<input type="text" id="username" name="username" placeholder="예) 홍길동"
+									class="input-xlarge">
+								<p class="help-block">이름을 입력하세요</p>
+							</div>
+						</div>
+						
+						<div class="control-group">
+							<!-- E-mail -->
+							<label class="control-label" for="email">이메일</label>
+							<div class="controls">
+								<input type="text" id="email" name="email" placeholder="예) abc@feelingk.com"
+									class="input-xlarge">
+								<p class="help-block">이메일을 제대로 입력해주세요</p>
+							</div>
+						</div>
+						
+
+						<div class="control-group">
+							<!-- Button -->
+							<div class="controls">
+								<button class="btn btn-block btn-lg btn-primary">등록</button>
+							</div>
+						</div>
+					</fieldset>
+				</form>
+
+
+
+			</div>
+		</div>
+	</div>
+
+
+</body>
+</html>
