@@ -24,7 +24,7 @@ public class LoginController{
     @RequestMapping(value = "/loginView.do")
     public String loginForm(){
     	/*만약 세션이있으면 프로젝트로가도록하기*/
-        return "/Login/login";
+        return "/login/loginView";
     }
     
     /**
@@ -33,15 +33,18 @@ public class LoginController{
 	 */  
     @RequestMapping(value = "/registerForm.do")
 	public String registerForm(){	 	
-    	return "/Login/registerForm";	
+    	return "/login/registerView";	
 	}
+    
+    
+    
     @RequestMapping(value = "/register.do")
   	public String register(UserVO user) throws Exception{	
     	System.out.println("등록폼에 왔습니다.");
     	System.out.println(user.getUsername());
     	int add = service.userInsert(user);
     	System.out.println(add);
-      	return "redirect:/";	
+      	return "/login/loginView";	
   	}
     /**
 	 * 비밀번호 찾기 폼
@@ -50,10 +53,9 @@ public class LoginController{
     @RequestMapping(value = "/passwordFindForm.do")
   	public String passwordFind(){	
     	
-      	return "/Login/passwordFindForm";
+      	return "/login/passwordFindForm";
   	}
-    
-    
+   
     /**
      * 로그인 요청
      * @param session
@@ -62,18 +64,18 @@ public class LoginController{
      * @throws Exception
      */
 	@RequestMapping(value = "/signIn.do")
-	public String signIn(HttpSession session, UserVO user) throws Exception {	
+	public String signIn(HttpSession session, UserVO user, HttpServletResponse response) throws Exception {	
 		String LoginChk = service.userLogin(user);
-		System.out.println("로그인체크"+LoginChk);
-		
+		System.out.println("로그인체크"+LoginChk);	
 		if(LoginChk != null){
 			session.setAttribute("Auth", Constants.LOGIN_TRUE);
-			session.setAttribute("userId", user.getUserId());	
-			return "Lobby/Lobby";
+			session.setAttribute("userId", user.getUserId());
+			session.setAttribute("userName", user.getUsername());
+			return "redirect:../lobby/lobbyView.do";
 		}
 		else{
 			session.invalidate();
-			return "/";	
+		return "login/loginView";
 		}
 		
 	}

@@ -2,6 +2,8 @@ package com.spring.grouping.handler;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.socket.CloseStatus;
@@ -47,11 +49,13 @@ public class ChatHandler extends TextWebSocketHandler {
 	@Override
 	protected void handleTextMessage(WebSocketSession session, TextMessage message) throws Exception {
 		// TODO Auto-generated method stub
-		System.out.println("여기2번");
-		logger.info(session.getId() + "님이 메시지 전송 : " + message.getPayload());
+
+		Map<String, Object> map = session.getAttributes();
+		String userId = (String)map.get("userId");
+		logger.info(userId + "님이 메시지 전송 : " + message.getPayload());
 		for(WebSocketSession webSocketSession : connectedUsers){
 			if(!session.getId().equals(webSocketSession)){
-				webSocketSession.sendMessage(new TextMessage(session.getId()+" "+message.getPayload()));
+				webSocketSession.sendMessage(new TextMessage(userId+" "+message.getPayload()));
 			}
 		}
 	}

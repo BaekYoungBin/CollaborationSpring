@@ -5,75 +5,62 @@ import java.sql.Date;
 public class BoardVO {
 
 
-	int post_id;
-	String post_subject;
-	String user_id;
-	Date date;
-	int hits;
-	String post_detail;
-	String name;
-	public int getPost_id() {
-		return post_id;
+	int SEQ_BOARD_NUMBER;	
+	String board_title;
+	String board_content;
+	String board_Reg_dt;
+	String board_reg_user_id;
+	String board_Reg_user_name;
+	String board_udt_dt;
+	String board_udt_user_id;
+	public int getSEQ_BOARD_NUMBER() {
+		return SEQ_BOARD_NUMBER;
 	}
-	public void setPost_id(int post_id) {
-		this.post_id = post_id;
+	public void setSEQ_BOARD_NUMBER(int SEQ_BOARD_NUMBER) {
+		SEQ_BOARD_NUMBER = SEQ_BOARD_NUMBER;
 	}
-	public String getPost_subject() {
-		return post_subject;
+	public String getBoard_title() {
+		return board_title;
 	}
-	public void setPost_subject(String post_subject) {
-		this.post_subject = post_subject;
+	public void setBoard_title(String board_title) {
+		this.board_title = board_title;
 	}
-	public String getUser_id() {
-		return user_id;
+	public String getBoard_content() {
+		return board_content;
 	}
-	public void setUser_id(String user_id) {
-		this.user_id = user_id;
+	public void setBoard_content(String board_content) {
+		this.board_content = board_content;
 	}
-	public Date getDate() {
-		return date;
+	public String getBoard_Reg_dt() {
+		return board_Reg_dt;
 	}
-	public void setDate(Date date) {
-		this.date = date;
+	public void setBoard_Reg_dt(String board_Reg_dt) {
+		this.board_Reg_dt = board_Reg_dt;
 	}
-	public int getHits() {
-		return hits;
+	public String getBoard_reg_user_id() {
+		return board_reg_user_id;
 	}
-	public void setHits(int hits) {
-		this.hits = hits;
+	public void setBoard_reg_user_id(String board_reg_user_id) {
+		this.board_reg_user_id = board_reg_user_id;
 	}
-	public String getPost_detail() {
-		return post_detail;
+	public String getBoard_Reg_user_name() {
+		return board_Reg_user_name;
 	}
-	public void setPost_detail(String post_detail) {
-		this.post_detail = post_detail;
+	public void setBoard_Reg_user_name(String board_Reg_user_name) {
+		this.board_Reg_user_name = board_Reg_user_name;
 	}
-	public String getName() {
-		return name;
+	public String getBoard_udt_dt() {
+		return board_udt_dt;
 	}
-	public void setName(String user_name) {
-		this.name = user_name;
+	public void setBoard_udt_dt(String board_udt_dt) {
+		this.board_udt_dt = board_udt_dt;
 	}
-	public BoardVO(int post_id, String post_subject, String user_id, Date date, int hits, String post_detail,
-			String name) {
-
-		this.post_id = post_id;
-		this.post_subject = post_subject;
-		this.user_id = user_id;
-		this.date = date;
-		this.hits = hits;
-		this.post_detail = post_detail;
-		this.name = name;
+	public String getBoard_udt_user_id() {
+		return board_udt_user_id;
 	}
-	public BoardVO(String post_subject, String user_id, String post_detail, String name) {
-		this.post_subject = post_subject;
-		this.user_id = user_id;
-		this.post_detail = post_detail;
-		this.name = name;
-	}
-	public BoardVO() {
-		// TODO Auto-generated constructor stub
+	public void setBoard_udt_user_id(String board_udt_user_id) {
+		this.board_udt_user_id = board_udt_user_id;
 	}
 
-	
+	public BoardVO(){};
 }

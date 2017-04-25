@@ -39,18 +39,30 @@ public class LoggerAspect {
 	
 	@Around("execution(* com..*Controller.*(..))" 
             + "execution(* com..*Service.*(..))")
-	 public Object loggingAdvice(ProceedingJoinPoint joinPoint)throws Throwable {
+	 public Object loggingControllerAdvice(ProceedingJoinPoint joinPoint)throws Throwable {
 		 logger.info("method path : \t" + joinPoint.getSignature());
 		 type = joinPoint.getSignature().getDeclaringTypeName();     
-	        if (type.indexOf("Controller") > -1) {
 	            name = "Controller  \t:  ";
-	        }
-	        else if (type.indexOf("Service") > -1) {
-	            name = "ServiceImpl  \t:  ";
-	        }
 	        logger.info(name + type + "." + joinPoint.getSignature().getName() + "()");
 	        return joinPoint.proceed();
 	}
+	@Around("execution(* com..*Service.*(..))")
+	 public Object loggingServiceAdvice(ProceedingJoinPoint joinPoint)throws Throwable {
+		 logger.info("method path : \t" + joinPoint.getSignature());
+		 type = joinPoint.getSignature().getDeclaringTypeName();        
+	            name = "ServiceImpl  \t:  ";
+	        logger.info(name + type + "." + joinPoint.getSignature().getName() + "()");
+	        return joinPoint.proceed();
+	}
+	@Around("execution(* com..*VO.*(..))")
+	 public Object loggingVOAdvice(ProceedingJoinPoint joinPoint)throws Throwable {
+		 logger.info("method path : \t" + joinPoint.getSignature());
 
+		 type = joinPoint.getSignature().getDeclaringTypeName();        
+	            name = "ServiceImpl  \t:  ";
+	        logger.info(name + type + "." + joinPoint.getSignature().getName() + "()");
+	  
+	        return joinPoint.proceed();
+	}
 	
 }

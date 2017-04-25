@@ -34,7 +34,16 @@
 		<property name="sqlSessionFactory" ref="sqlSessionFactory" />
 	</bean>
 
+
+<!-- Login할 때 쓰는 Mapper -->
+	<bean id="groupMapper" class="org.mybatis.spring.mapper.MapperFactoryBean">
+		<property name="mapperInterface" value="com.spring.grouping.group.mapper.GroupMapper" />
+		<property name="sqlSessionFactory" ref="sqlSessionFactory" />
+	</bean>
 <!-- <mybatis-spring:scan base-package="classpath*:mappers" /> -->
 
-
+<bean id="boardMapper" class="org.mybatis.spring.mapper.MapperFactoryBean">
+		<property name="mapperInterface" value="com.spring.grouping.board.mapper.BoardMapper" />
+		<property name="sqlSessionFactory" ref="sqlSessionFactory" />
+	</bean>
 </beans>

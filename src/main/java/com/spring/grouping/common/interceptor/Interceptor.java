@@ -10,8 +10,10 @@ public class Interceptor extends HandlerInterceptorAdapter {
 	@Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
         try {
-            //user이라는 세션key를 가진 정보가 널일경우 로그인페이지로 이동
+        	System.out.println(request.getInputStream());
+            //Auth이라는 세션key를 가진 정보가 널일경우 로그인페이지로 이동
             if(request.getSession().getAttribute("Auth") == null ){
+            	System.out.println("Auth == null");
                     response.sendRedirect("/");
                     return false;
             }
