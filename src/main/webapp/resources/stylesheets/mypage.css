@@ -116,10 +116,27 @@ opacity: 1;
 section{
 padding-left: 15px;
 }
-
+@media (min-width:1200px)
+.container{
+	width:1600px;
+}
 #innerPage{
-
-    width : 81%;
+    width : 80%;
     height : 80%;
     display : inline-block;
+}
+#insertBtn{
+	float : right;
+}
+#deleteBtn{
+	float : right;
+}
+.panel-body{
+	height : 68vh;
+}
+.userpanel-body{
+	height : 43vh;
+}
+.favorite_td{
+	width : 120px;
 }

@@ -1,10 +1,13 @@
 package com.spring.grouping.group.controller;
 
+import java.util.List;
+
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.spring.grouping.group.domain.GroupVO;
@@ -20,25 +23,58 @@ public class GroupController {
 	GroupService service;
 
 	@RequestMapping(value = "/groupView.do")
-	public ModelAndView groupView() {
-		System.out.println("들어와따");
+	public ModelAndView groupView(HttpSession session) {
 		ModelAndView mv = new ModelAndView();
 
-		mv.addObject("favoriteGroup", service.selectFavoriteGroup());
-		mv.addObject("newstGroup", service.selectNewestGroup());
+
+		mv.addObject("group",service.selectGroupList((String)session.getAttribute("user_id")));
+		mv.addObject("favoriteGroup", service.selectFavoriteGroupList((String)session.getAttribute("user_id")));
+		mv.addObject("newstGroup", service.selectNewestGroupList((String)session.getAttribute("user_id")));
 		mv.setViewName("/group/groupView");
 		return mv;
 	}
 
 	@RequestMapping(value = "/groupRegister.do")
-	public String groupRegister(GroupVO group, HttpSession session) {
-
-		try {
-			service.groupInsert(group, session);
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		return "/lobby/lobbyView";
+	@ResponseBody
+	public int groupRegister(GroupVO group, HttpSession session) throws Exception {
+			group.setGrp_leader_id((String)session.getAttribute("user_id"));	
+			return service.groupInsert(group, session);
 	}
+	
+	
+	 @RequestMapping(value = "/selectGroupList.do")
+	    public ModelAndView selectGroupList(HttpSession session){
+		 ModelAndView mv = new ModelAndView();
+		 List<GroupVO> group = service.selectGroupList((String)session.getAttribute("user_id"));
+
+		 mv.addObject("group", group);
+		mv.addObject("favorite_group", service.selectFavoriteGroupList((String)session.getAttribute("user_id")));
+		 mv.setViewName("/group/modifyGroup");
+	        return mv;
+	   } 
+	 @RequestMapping(value = "/updateFavoriteGroupList.do")
+	 @ResponseBody
+	    public int updateFavoriteGroupList(String seq_grp_number, HttpSession session){
+		 System.out.println(seq_grp_number);
+		return service.updateFavoriteGroupList(seq_grp_number, session);
+	   } 
+	 @RequestMapping(value = "/updateNewestGroupList.do")
+	 @ResponseBody
+	    public int updateNewestGroupList(String seq_grp_number, HttpSession session){
+		 System.out.println(seq_grp_number);
+		return service.updateNewestGroupList(seq_grp_number, session);
+	   }
+	 @RequestMapping(value = "/deleteGroup.do")
+	 @ResponseBody
+	    public int deleteGroup(String seq_grp_number, HttpSession session){
+		 System.out.println(seq_grp_number);
+		return service.deleteGroup(seq_grp_number, session);
+	   }
+	 @RequestMapping(value = "/outGroup.do")
+	 @ResponseBody
+	    public int outGroup(String seq_grp_number, HttpSession session){
+		 System.out.println(seq_grp_number);
+		return service.outGroup(seq_grp_number, session);
+	   }
+	 
 }

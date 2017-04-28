@@ -18,10 +18,10 @@
                     <div class="modal-body">
                         <form action='/grouping/login/signIn.do' method ="POST">
                             <div class="form-group">
-                                <input type="text" id="userId" name="userId" class="form-control input-lg" placeholder="UserId" />
+                                <input type="text" id="user_id" name="user_id" class="form-control input-lg" placeholder="user_id" />
                             </div>
                             <div class="form-group">
-                                <input type="password" id="password" name="password" class="form-control input-lg" placeholder="Password" />
+                                <input type="password" id="user_pwd" name="user_pwd" class="form-control input-lg" placeholder="Password" />
                             </div>
                             <div class="form-group">
                                 <input type="submit" class="btn btn-block btn-lg btn-primary" value="Login" />

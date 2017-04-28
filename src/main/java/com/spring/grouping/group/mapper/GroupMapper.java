@@ -9,6 +9,15 @@ public interface GroupMapper {
 
 	public int groupInsert(GroupVO group) throws Exception;
 	public int groupInUserInsert(Map<String, Object> map) throws Exception;
-	public List<GroupVO> selectNewestGroup();
-	public List<GroupVO> selectFavoriteGroup();
+	
+	public List<GroupVO> selectNewestGroupList(String user_id);
+	
+	public List<GroupVO> selectFavoriteGroupList(String user_id);
+	
+	public List<GroupVO> selectGroupList(String user_id);
+	public int updateFavoriteGroupList(Map<String, Object> map);
+	public int selectFavoriteGroupListCnt(Map<String, Object> map);
+	public int updateNewestGroupList(Map<String, Object> map);
+	public int deleteGroup(Map<String, Object> map);
+	public int outGroup(Map<String, Object> map);
 }

@@ -6,12 +6,9 @@
 
 <html>
 	  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+     
          <link rel="stylesheet" type="text/css" href="/grouping/resources/stylesheets/main.css">
-<script
-	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
-	integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
-	crossorigin="anonymous"></script>
+
 	
 	
 <head>
@@ -22,6 +19,8 @@
    $( function() {  
 			goSearch('1');
         });
+
+   
    function goSearch(page) {
 		$("#page").val(page);
 		var list = new Array();
@@ -29,82 +28,30 @@
 			url : "/grouping/board/boardViewAjax.do"
 			,data : $('#communityBoardSearchForm').serialize()
 			,dataType : 'json'
-			,type : "get"
+			,type : "post"
+			,async:false
 			,success : function(jsonData){
 				var dataform = JSON.stringify(jsonData.boardList);
 				var temp = JSON.parse(dataform);
-				alert(dataform);
-				alert(temp);
-				
 				var text;
-				$.each(temp, function(key, value){		 
-					text +="<tr><td align='center'>";
-					text +="<a class='btn btn-default'><em class='fa fa-pencil'></em></a>";
-					text +="<a class='btn btn-danger'><em class='fa fa-trash'></em></a></td>";
-					text +="<td>"+value.SEQ_BOARD_NUMBER+"</td>";
-					text +="<td>"+value.board_title+"</td>";
+
+				$.each(temp, function(key, value){	
+					text +="<tr>";
+					text +="<td>"+value.seq_board_number+"</td>"; /* //javascript:asdf(); */
+					text +="<td><a href='javascript:loadBoardDetail("+value.seq_board_number+");'>"+value.board_title+"</a></td>";
 					text +="<td>"+value.board_content+"</td>";
+					text +="<td>"+value.board_reg_user_name+"</td>";
 					text +="</tr>";			 
 				});
 				$("#datasection").html(text);
 			},
-			error : function(jsonData){
-				
-				
-				
+			error : function(jsonData){		
 				alert("실패");
-
 			}
-			
-	
-			
-		/* 	var html = '';
-			var list = data.resultList;
-			var totalResult = data.totalCount;	
-			if(totalResult > 0) {
-				for (var i=0; i<list.length; i++) {
-					html += '<tr>';
-					html += '	<td>' + list[i].rnum + '</td>';
-					html += '	<td>' + list[i].serviceType +'</td>';
-					html += '	<td>' + list[i].actionKindKr +'</td>';
-					html += '	<td>' + list[i].ctn + '</td>';
-					html += '	<td>' + list[i].hash +'</td>';
-					html += '	<td>' + list[i].haVer  + '</td>';
-					html += '	<td>' + list[i].osInfo  + '</td>';
-					html += '	<td>' + list[i].model  + '</td>';
-					html += '	<td>' + list[i].serviceUseLatestDate+ '</td>';
-					html += '	<td>' + list[i].serviceUseCnt+ '</td>';
-					html += '</tr>';
-				}
-			} else {
-				html += "<tr>"
-				html += "	<td colspan='10'> 검색조건에 부합되는 데이터가 없습니다.</td>";
-				html += "</tr>"			
-			}
-			
-			$("#userHistList").empty();
-			$("#userHistList").append(html);
-			$("#paging").empty();
-			$("#paging").append(data.paging);
-			$("#totCnt").text(totalResult); */
 		});
 		
-		function prepare(data){
-			alert(data);
-			
-			alert("들어왔다"+data.board_title);
-			var text;
-			$.each(function(index, data){		
-				text +="<tr><td align='center'>";
-				text +="<a class='btn btn-default'><em class='fa fa-pencil'></em></a>";
-				text +="<a class='btn btn-danger'><em class='fa fa-trash'></em></a></td>";
-				text +="<td>"+data.seq_board_number+"</td>";
-				text +="<td>"+data.board_title+"</td>";
-				text +="<td>"+data.board_content+"</td>";
-				text +="</tr>";			
-			});
-			$("datasection").html(text);
-		}
+	
+		
 	}
 
     
@@ -120,7 +67,7 @@
                             <h3 class="panel-title">커뮤니티 게시판</h3>
                         </div>
                         <div class="col col-xs-6 text-right">
-                            <button type="button" class="btn btn-sm btn-primary btn-create">Create New</button>
+                            <button type="button" class="btn btn-sm btn-primary btn-create" onclick="loadComunityWrite();">새 글쓰기</button>
                         </div>
                     </div>
                 </div>
@@ -128,16 +75,13 @@
                 <form id="communityBoardSearchForm" name="communityBoardSearchForm" method="POST">
                 	<input type="hidden" id="page" name="page" />
                     <table class="table table-striped table-bordered table-list">
-                        <thead>
-                        
-                            <tr>
-                                <th><em class="fa fa-cog"></em></th>
+                        <thead>                  
+                            <tr>                         
                                 <th class="hidden-xs">글 번호</th>
                                 <th>글 제목</th>
                                 <th>상세 내용</th>
-                            </tr> 
-                            
-                            
+                                <th>글쓴이</th>
+                            </tr>         
                         </thead>
                         <tbody id = "datasection">
                          

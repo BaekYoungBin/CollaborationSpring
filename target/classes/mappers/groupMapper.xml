@@ -3,35 +3,116 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.spring.grouping.group.mapper.GroupMapper">
-	<insert id="groupInsert" parameterType="com.spring.grouping.group.domain.GroupVO" useGeneratedKeys="true"   
-  keyProperty="seq_grp_number">
+	<insert id="groupInsert" parameterType="com.spring.grouping.group.domain.GroupVO"
+		useGeneratedKeys="true" keyProperty="seq_grp_number">
 
-			insert into T_GRP_INFO (GRP_TITLE, GRP_CONTENT,
-			GRP_FAVORITE_YN, GRP_REG_DT,
-			GRP_REG_USER_ID, GRP_UDT_DT, GRP_UDT_USER_ID, GRP_LEADER_ID)
-			values(#{grp_title}, #{grp_content},
-			#{favorite_yn},#{reg_dt},#{reg_user_name},#{udt_dt},#{udt_user_name},#{grp_leader_id})
-
+		insert into T_GRP_INFO (GRP_TITLE, GRP_CONTENT,
+		 GRP_REG_DT,
+		GRP_REG_USER_ID, GRP_UDT_DT, GRP_UDT_USER_ID, GRP_LEADER_ID)
+		values(#{grp_title}, #{grp_content},
+		#{grp_reg_dt},#{grp_reg_user_id},#{grp_udt_dt},#{grp_udt_user_id},#{grp_leader_id})
 	</insert>
 
 	<insert id="groupInUserInsert" parameterType="hashMap">
 		INSERT INTO
-		T_USER_IN_GROUP (SEQ_GRP_NUMBER, USER_ID, REG_DT, REG_USER_ID)
+		T_USER_IN_GROUP (SEQ_GRP_NUMBER, USER_ID, REG_DT, REG_USER_ID, USE_DT)
 		VALUES
-		(#{groupNum}, #{userId}, null, null)
+		(#{groupNum}, #{user_id}, CURRENT_TIMESTAMP, #{user_id},
+		CURRENT_TIMESTAMP)
 	</insert>
+	<select id="selectGroupList" parameterType="String"
+		resultType="com.spring.grouping.group.domain.GroupVO">
+		SELECT B.SEQ_GRP_NUMBER
+		, B.GRP_TITLE
+		, B.GRP_CONTENT
+		, A.GRP_FAVORITE_YN
+		, B.GRP_REG_DT
+		, B.GRP_REG_USER_ID
+		, B.GRP_UDT_DT
+		, B.GRP_UDT_USER_ID
+		, B.GRP_LEADER_ID
+		FROM T_USER_IN_GROUP A RIGHT JOIN
+		T_GRP_INFO B ON A.SEQ_GRP_NUMBER = B.SEQ_GRP_NUMBER 
+		WHERE A.USER_ID =
+		#{user_id}
 
-
-
-	<select id="selectNewestGroup" resultType="com.spring.grouping.group.domain.GroupVO">
-		SELECT * FROM
-		T_GRP_INFO
 
 	</select>
 
-	<select id="selectFavoriteGroup" resultType="com.spring.grouping.group.domain.GroupVO">
-		SELECT * FROM
-		T_GRP_INFO
-	</select>
+	<select id="selectNewestGroupList"
+	resultType="com.spring.grouping.group.domain.GroupVO">
+		SELECT A.SEQ_GRP_NUMBER
+		, A.GRP_TITLE
+		, A.GRP_CONTENT
+		, B.GRP_FAVORITE_YN
+		, A.GRP_REG_DT
+		, A.GRP_REG_USER_ID
+		, A.GRP_UDT_DT
+		, A.GRP_UDT_USER_ID
+		, A.GRP_LEADER_ID
+		FROM
+		T_GRP_INFO A LEFT JOIN 
+		T_USER_IN_GROUP B ON A.SEQ_GRP_NUMBER = B.SEQ_GRP_NUMBER
+		WHERE 
+		B.USER_ID = #{user_id} AND B.USE_DT IS NOT NULL
+		ORDER BY B.USE_DT DESC
+		LIMIT 5
 
+
+	</select> 
+
+	<select id="selectFavoriteGroupList" parameterType="String"
+		resultType="com.spring.grouping.group.domain.GroupVO" >
+				SELECT 
+				A.SEQ_GRP_NUMBER
+		, A.GRP_TITLE
+		, A.GRP_CONTENT
+		, B.GRP_FAVORITE_YN
+		, A.GRP_REG_DT
+		, A.GRP_REG_USER_ID
+		, A.GRP_UDT_DT
+		, A.GRP_UDT_USER_ID
+		, A.GRP_LEADER_ID
+		FROM
+		T_GRP_INFO A LEFT JOIN 
+		T_USER_IN_GROUP B ON A.SEQ_GRP_NUMBER = B.SEQ_GRP_NUMBER
+		WHERE 
+		B.USER_ID = #{user_id} AND B.GRP_FAVORITE_YN IS NOT NULL
+	</select>
+	
+		<select id="selectFavoriteGroupListCnt" parameterType="hashMap" resultType="int">
+				SELECT 
+				count(*)
+		FROM
+		T_USER_IN_GROUP
+		WHERE 
+		USER_ID = #{user_id} AND GRP_FAVORITE_YN IS NOT NULL
+	</select>
+	
+	<update id="updateFavoriteGroupList" parameterType="hashMap">
+		UPDATE T_USER_IN_GROUP 
+		SET
+		GRP_FAVORITE_YN = IF(GRP_FAVORITE_YN IS NULL, 1, null)
+		WHERE 
+		SEQ_GRP_NUMBER = #{seq_grp_number} AND USER_ID = #{user_id}
+	</update>
+	<update id="updateNewestGroupList" parameterType="hashMap">
+		UPDATE T_USER_IN_GROUP 
+		SET
+		USE_DT = null
+		WHERE 
+		SEQ_GRP_NUMBER = #{seq_grp_number} AND USER_ID = #{user_id}
+	</update>
+	<delete id="deleteGroup" parameterType="hashMap">
+		DELETE FROM T_GRP_INFO
+		WHERE
+		SEQ_GRP_NUMBER = #{seq_grp_number} AND GRP_REG_USER_ID = #{user_id}
+	
+	</delete>
+		<delete id="outGroup" parameterType="hashMap">
+		DELETE FROM T_USER_IN_GROUP
+		WHERE
+		SEQ_GRP_NUMBER = #{seq_grp_number} AND GRP_REG_USER_ID = #{user_id}
+	
+	</delete>
 </mapper>

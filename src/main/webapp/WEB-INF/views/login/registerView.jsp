@@ -23,9 +23,9 @@
 
 						<div class="control-group">
 							<!-- Username -->
-							<label class="control-label" for="userId">ID</label>
+							<label class="control-label" for="user_id">ID</label>
 							<div class="controls">
-								<input type="text" id="userId" name="userId"
+								<input type="text" id="user_id" name="user_id"
 									placeholder="희망하는 id를 입력하세요" class="input-xlarge">
 								<p class="help-block">ID는 필수입력값 입니다.</p>
 							</div>
@@ -33,9 +33,9 @@
 
 
 						<div class="control-group">
-							<label class="control-label" for="password">비밀번호</label>
+							<label class="control-label" for="user_pwd">비밀번호</label>
 							<div class="controls">
-								<input type="password" id="password" name="password"
+								<input type="password" id="user_pwd" name="user_pwd"
 									placeholder="********" class="input-xlarge">
 								<p class="help-block">비밀번호는 적어도 4자 이상 입력해주세요.</p>
 							</div>
@@ -55,7 +55,7 @@
 							<!-- E-mail -->
 							<label class="control-label" for="usr">이름</label>
 							<div class="controls">
-								<input type="text" id="username" name="username" placeholder="예) 홍길동"
+								<input type="text" id="user_name" name="user_name" placeholder="예) 홍길동"
 									class="input-xlarge">
 								<p class="help-block">이름을 입력하세요</p>
 							</div>
@@ -63,15 +63,13 @@
 						
 						<div class="control-group">
 							<!-- E-mail -->
-							<label class="control-label" for="email">이메일</label>
+							<label class="control-label" for="user_email">이메일</label>
 							<div class="controls">
-								<input type="text" id="email" name="email" placeholder="예) abc@feelingk.com"
+								<input type="text" id="user_email" name="user_email" placeholder="예) abc@feelingk.com"
 									class="input-xlarge">
 								<p class="help-block">이메일을 제대로 입력해주세요</p>
 							</div>
 						</div>
-						
-
 						<div class="control-group">
 							<!-- Button -->
 							<div class="controls">

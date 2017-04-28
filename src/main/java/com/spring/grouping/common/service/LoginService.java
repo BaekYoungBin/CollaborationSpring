@@ -28,7 +28,6 @@ public class LoginService {
 	};
 	
 	public int userInsert(UserVO user)throws Exception {
-		System.out.println(user.getUserId()+user.getPassword()+user.getUsername()+user.getEmail());
 		return loginMapper.userInsert(user);
 	}
 	

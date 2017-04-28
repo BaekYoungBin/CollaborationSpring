@@ -3,7 +3,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,23 +35,43 @@ public class BoardController {
 	   @ResponseBody
 	    public Map<String, Object> boardViewAjax(){
 		   List<BoardVO> boardList = service.selectBoardList();
-		   System.out.println("boardList ="+boardList.toString());
-		   System.out.println("size="+boardList.size());
-		   System.out.println(boardList.get(0).getBoard_title());
+		   System.out.println(boardList.size());
+		   
 		   Map<String, Object> map = new HashMap<String, Object>();
 		   map.put("boardList", boardList);
-		 return map;
-		   
-		   
-		 /*  if(session.getAttribute("group_id")==null )
-	        return "/board/communityView";
-		   else
-		   {
-			   //그룹아이디 가지고 board가기
-				return "/board/communityView";
-		   }*/
-	
+		   if(map.size() == 0)
+			   map.put("boardList", null);
+		   return map;	
 	    }
-	    
-	    
+	   @RequestMapping(value = "/boardWriteView.do")
+	    public String boardWriteView(){
+		 return "/board/boardWriteView";
+	    }
+	  
+	   @RequestMapping(value = "/boardDetailView.do")
+	    public ModelAndView boardDetailView(String seq_board_number){
+		   ModelAndView mv = new ModelAndView();	 
+		   mv.addObject("board", service.selectBoardDetail(seq_board_number));
+		   mv.setViewName("/board/boardDetailView");
+		 return mv;
+	    }
+
+	   @RequestMapping(value ="/insertBoard.do")
+	   @ResponseBody
+	    public int boardInsert(BoardVO board, HttpSession session){	  
+
+		 return service.insertBoard(board, session);
+	    }
+	   
+	   @RequestMapping(value="/modifyBoard.do")
+	   @ResponseBody
+	   public int modifyBoard(BoardVO board){
+		   return service.updateBoard(board);
+	   }
+	   
+	   @RequestMapping(value="/deleteBoard.do")
+	   @ResponseBody
+	   public int deleteBoard(BoardVO board){
+		   return service.deleteBoard(board);
+	   }
 }

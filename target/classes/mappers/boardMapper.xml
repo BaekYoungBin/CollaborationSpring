@@ -6,10 +6,39 @@
 	<select id="selectBoardList" parameterType="int" resultType="com.spring.grouping.board.domain.BoardVO">
 		select * 
 		from t_board_info
+		ORDER BY SEQ_BOARD_NUMBER DESC
 	</select>
 
 	<select id="selectBoardListCnt" resultType="int">
 		select count(*) 
 		from t_board_info
 	</select>
+	<select id ="selectBoardDetail" resultType="com.spring.grouping.board.domain.BoardVO">
+	SELECT *
+	from T_BOARD_INFO
+	WHERE SEQ_BOARD_NUMBER = #{seq_board_number}
+	
+	</select>
+	<insert id="insertBoard" parameterType="hashMap">
+		INSERT INTO T_BOARD_INFO
+		(BOARD_TITLE, BOARD_CONTENT, BOARD_REG_DT, BOARD_REG_USER_ID, BOARD_REG_USER_NAME, BOARD_UDT_DT, BOARD_UDT_USER_ID)
+		VALUES
+		(#{board.board_title}, #{board.board_content}, CURRENT_TIMESTAMP, #{user_id}, #{user_name}, #{board.board_udt_dt}, #{board.board_udt_user_id})
+	</insert>
+	
+	<update id="updateBoard" parameterType="com.spring.grouping.board.domain.BoardVO">
+		UPDATE T_BOARD_INFO 
+		SET
+		BOARD_TITLE = #{board_title}
+		, BOARD_CONTENT = #{board_content}
+		, BOARD_UDT_DT = CURRENT_TIMESTAMP
+		, BOARD_UDT_USER_ID = #{board_reg_user_id}
+		WHERE 
+		SEQ_BOARD_NUMBER = #{seq_board_number}
+	</update>
+	<delete id ="deleteBoard"  parameterType="com.spring.grouping.board.domain.BoardVO">
+	DELETE FROM T_BOARD_INFO
+	WHERE SEQ_BOARD_NUMBER = #{seq_board_number}
+	</delete>
+	
 </mapper>

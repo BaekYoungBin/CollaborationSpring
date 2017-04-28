@@ -51,11 +51,11 @@ public class ChatHandler extends TextWebSocketHandler {
 		// TODO Auto-generated method stub
 
 		Map<String, Object> map = session.getAttributes();
-		String userId = (String)map.get("userId");
-		logger.info(userId + "님이 메시지 전송 : " + message.getPayload());
+		String user_id = (String)map.get("user_id");
+		logger.info(user_id + "님이 메시지 전송 : " + message.getPayload());
 		for(WebSocketSession webSocketSession : connectedUsers){
 			if(!session.getId().equals(webSocketSession)){
-				webSocketSession.sendMessage(new TextMessage(userId+" "+message.getPayload()));
+				webSocketSession.sendMessage(new TextMessage(user_id+" "+message.getPayload()));
 			}
 		}
 	}

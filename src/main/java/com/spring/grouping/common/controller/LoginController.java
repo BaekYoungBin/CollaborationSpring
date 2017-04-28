@@ -41,7 +41,7 @@ public class LoginController{
     @RequestMapping(value = "/register.do")
   	public String register(UserVO user) throws Exception{	
     	System.out.println("등록폼에 왔습니다.");
-    	System.out.println(user.getUsername());
+    	System.out.println(user.getUser_name());
     	int add = service.userInsert(user);
     	System.out.println(add);
       	return "/login/loginView";	
@@ -65,12 +65,14 @@ public class LoginController{
      */
 	@RequestMapping(value = "/signIn.do")
 	public String signIn(HttpSession session, UserVO user, HttpServletResponse response) throws Exception {	
-		String LoginChk = service.userLogin(user);
-		System.out.println("로그인체크"+LoginChk);	
-		if(LoginChk != null){
+		System.out.println(user.getUser_id());
+		System.out.println(user.getUser_pwd());
+		String user_name = service.userLogin(user);
+		System.out.println(user_name);
+		if(user_name != null){
 			session.setAttribute("Auth", Constants.LOGIN_TRUE);
-			session.setAttribute("userId", user.getUserId());
-			session.setAttribute("userName", user.getUsername());
+			session.setAttribute("user_id", user.getUser_id());
+			session.setAttribute("user_name", user_name);
 			return "redirect:../lobby/lobbyView.do";
 		}
 		else{

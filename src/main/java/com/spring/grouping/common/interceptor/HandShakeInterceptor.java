@@ -26,9 +26,9 @@ public class HandShakeInterceptor extends HttpSessionHandshakeInterceptor{
         ServletServerHttpRequest ssreq = (ServletServerHttpRequest) request;
         HttpServletRequest req =  ssreq.getServletRequest();
 
-        String userId = (String)req.getSession().getAttribute("userId");
-        attributes.put("userId", userId);
-        logger.info("HttpSession에 저장된 id:"+userId);
+        String user_id = (String)req.getSession().getAttribute("user_id");
+        attributes.put("user_id", user_id);
+        logger.info("HttpSession에 저장된 id:"+user_id);
          
         return super.beforeHandshake(request, response, wsHandler, attributes);
     }
