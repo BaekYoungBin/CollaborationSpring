@@ -21,6 +21,12 @@
 	from T_USER_INFO
 	WHERE USER_ID = #{user_id}
 	</select>
-
+	
+	<select id ="selectUserName" resultType="String">
+	SELECT USER_NAME
+	FROM T_USER_INFO
+	WHERE USER_ID =#{user_id}
+	
+	</select>
 	
 </mapper>

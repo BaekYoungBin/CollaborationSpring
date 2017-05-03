@@ -47,7 +47,7 @@ function deleteGroup(id){
 			type : "post",
 			async : false,
 			success : function(jsonData) {
-				alert("gg");
+
 				group_management();
 			},
 			error : function(jsonData) {
@@ -80,6 +80,8 @@ function outGroup(id){
 	}
 	
 }
+
+
 </script>
 <body>
 
@@ -103,7 +105,7 @@ function outGroup(id){
 								<th>즐겨찾기 설정</th>
 								<th>그룹 이름</th>
 								<th>그룹 설명</th>
-								<th>그룹 설정</th>
+								<th>그룹 접속</th>
 							</tr>
 
 
@@ -121,7 +123,7 @@ function outGroup(id){
 									<td>${grp.grp_title}</td>
 									<td>${grp.grp_content}</td>
 									<td>
-										<button>그룹 입장</button>
+										<button id="${grp.seq_grp_number}" onclick="joinGroupMain(this.id);">접속</button>
 									</td>
 								</tr>
 							</c:forEach>
@@ -142,8 +144,8 @@ function outGroup(id){
 						<h3 class="panel-title">회원이 속한 모든 그룹</h3>
 					</div>
 					<div class="col col-xs-6 text-right">
-						<button type="button" class="btn btn-sm btn-primary btn-create">Create
-							New</button>
+						<button type="button" class="btn btn-sm btn-primary btn-create" data-toggle="modal"
+							data-target="#reg_grp1">그룹 생성</button>
 					</div>
 				</div>
 			</div>
@@ -189,26 +191,26 @@ function outGroup(id){
 									<td>${grp.grp_title}</td>
 									<td>${grp.grp_content}</td>
 									<td>
-										<button>접속</button>
-									</td>
+										<button id="${grp.seq_grp_number}" onclick="joinGroupMain(this.id);">접속</button>
+									
 									
 									<c:set var="user_id" value="${user_id}" />
 										<c:choose>				
 										<c:when test="${grp.grp_leader_id eq user_id}">
-											<td class="out_td">
+											
 												<button type="button" class="btn btn-default btn-sm favorite-btn" id = "${grp.seq_grp_number}" onclick="deleteGroup(this.id)">								
 												<span class="glyphicon glyphicon-trash" id = "${grp.seq_grp_number}"></span>
 												</button>
-											</td>
+											
 										</c:when>
 										<c:otherwise>
-											<td class="out_td">
+										
 												<button type="button" class="btn btn-default btn-sm favorite-btn" id = "${grp.seq_grp_number}" onclick="outGroup(this.id)">								
 												<span class="glyphicon glyphicon-log-out" id = "${grp.seq_grp_number}"></span>
 												</button>
-											</td>
+										
 										</c:otherwise>
-									</c:choose>
+									</c:choose></td>
 
 								</tr>
 							</c:forEach>
@@ -217,7 +219,7 @@ function outGroup(id){
 				</form>
 
 			</div>
-			<div class="panel-footer">
+		<!-- 	<div class="panel-footer">
 				<div class="row">
 					<div class="col col-xs-4">Page 1 of 5</div>
 					<div class="col col-xs-8">
@@ -234,11 +236,11 @@ function outGroup(id){
 						</ul>
 					</div>
 				</div>
-			</div>
+			</div> -->
 		</div>
 
 	</div>
-
+<!-- 그룹 생성 모달 -->
 
 </body>
 </html>

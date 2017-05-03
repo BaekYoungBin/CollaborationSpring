@@ -3,6 +3,15 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.spring.grouping.group.mapper.GroupMapper">
+	<select id="selectWorkList" resultType="com.spring.grouping.work.domain.WorkVO">
+		SELECT *
+		FROM T_WORK_INFO
+		WHERE SEQ_WORK_NUMBER = #{seq_work_number}
+	
+	</select>
+	
+	
+	
 	<insert id="groupInsert" parameterType="com.spring.grouping.group.domain.GroupVO"
 		useGeneratedKeys="true" keyProperty="seq_grp_number">
 
@@ -11,6 +20,7 @@
 		GRP_REG_USER_ID, GRP_UDT_DT, GRP_UDT_USER_ID, GRP_LEADER_ID)
 		values(#{grp_title}, #{grp_content},
 		#{grp_reg_dt},#{grp_reg_user_id},#{grp_udt_dt},#{grp_udt_user_id},#{grp_leader_id})
+		
 	</insert>
 
 	<insert id="groupInUserInsert" parameterType="hashMap">
@@ -19,6 +29,26 @@
 		VALUES
 		(#{groupNum}, #{user_id}, CURRENT_TIMESTAMP, #{user_id},
 		CURRENT_TIMESTAMP)
+	</insert>
+	
+	<insert id="insertWorkListName" parameterType="int">
+		INSERT INTO
+		T_WORK_LIST_NAME (SEQ_GRP_NUMBER)
+		VALUES (#{SEQ_GRP_NUMBER})
+	</insert>
+	<select id="selectMemberUser" parameterType="map" resultType="int">
+	SELECT count(*)
+	FROM T_USER_IN_GROUP
+	WHERE
+	USER_ID = #{user_id}
+	
+	</select>
+	
+	
+	<insert id = "inviteUser" parameterType="map">
+		INSERT INTO
+		T_USER_IN_GROUP(USER_ID, SEQ_GRP_NUMBER)
+		VALUES (#{user_id}, #{seq_grp_number})
 	</insert>
 	<select id="selectGroupList" parameterType="String"
 		resultType="com.spring.grouping.group.domain.GroupVO">

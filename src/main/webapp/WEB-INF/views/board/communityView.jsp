@@ -90,7 +90,7 @@
                     </form>
 
                 </div>
-                <div class="panel-footer">
+               <!--  <div class="panel-footer">
                     <div class="row">
                         <div class="col col-xs-4">Page 1 of 5
                         </div>
@@ -108,7 +108,7 @@
                             </ul>
                         </div>
                     </div>
-                </div>
+                </div> -->
             </div>
 
         </div>

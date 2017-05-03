@@ -27,8 +27,8 @@ public class GroupService {
 		group.setGrp_leader_id((String) session.getAttribute("user_id"));
 		group.setGrp_reg_user_id((String) session.getAttribute("user_id"));
 		groupMapper.groupInsert(group);
-		System.out.println(group.getSeq_grp_number());	
 		Map<String, Object> map = new HashMap<>();
+		groupMapper.insertWorkListName(group.getSeq_grp_number());
 		map.put("groupNum", group.getSeq_grp_number());
 		map.put("user_id", (String) session.getAttribute("user_id"));
 		return groupMapper.groupInUserInsert(map);
@@ -96,6 +96,14 @@ public class GroupService {
 		map.put("user_id", (String)session.getAttribute("user_id"));
 		map.put("seq_grp_number", seq_grp_number);
 		return groupMapper.outGroup(map);
+	}
+	public int inviteUser(Map<String, Object> map) {
+		// TODO Auto-generated method stub
+		if(groupMapper.selectMemberUser(map) == 0){
+		return groupMapper.inviteUser(map);
+		}
+		else
+			return 0;
 	}
 	
 	

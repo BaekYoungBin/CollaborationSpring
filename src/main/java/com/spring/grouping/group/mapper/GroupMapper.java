@@ -9,7 +9,7 @@ public interface GroupMapper {
 
 	public int groupInsert(GroupVO group) throws Exception;
 	public int groupInUserInsert(Map<String, Object> map) throws Exception;
-	
+	public int insertWorkListName(int seq_grp_number)throws Exception;
 	public List<GroupVO> selectNewestGroupList(String user_id);
 	
 	public List<GroupVO> selectFavoriteGroupList(String user_id);
@@ -20,4 +20,6 @@ public interface GroupMapper {
 	public int updateNewestGroupList(Map<String, Object> map);
 	public int deleteGroup(Map<String, Object> map);
 	public int outGroup(Map<String, Object> map);
+	public int inviteUser(Map<String, Object> map);
+	public int selectMemberUser(Map<String, Object> map);
 }

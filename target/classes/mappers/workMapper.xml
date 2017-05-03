@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.spring.grouping.work.mapper.WorkMapper">
+	
+<select id ="selectMemberList" resultType="com.spring.grouping.user.domain.UserVO">
+	SELECT *
+	FROM T_USER_INFO A LEFT JOIN T_USER_IN_GROUP B ON A.USER_ID = B.USER_ID
+	WHERE B.SEQ_GRP_NUMBER = #{seq_grp_number}
+	</select>
+	<select id = "selectWorkList" resultType="com.spring.grouping.work.domain.WorkVO">
+	SELECT *
+	FROM T_WORK_INFO
+	WHERE SEQ_GRP_NUMBER = #{seq_grp_number}
+	</select>
+	
+	<insert id = "insertWork" parameterType="com.spring.grouping.work.domain.WorkVO">
+	INSERT INTO
+		T_WORK_INFO (SEQ_GRP_NUMBER, WORK_SUBJECT, WORK_CONTENT, WORK_START_DATE, WORK_END_DATE, WORK_USER_ID, WORK_USER_NAME, WORK_CATEGORY)
+		VALUES
+		(#{seq_grp_number}, #{work_subject}, #{work_content}, #{work_start_date}, #{work_end_date}, #{work_user_id}, #{work_user_name}, #{work_category}
+		)
+	</insert>
+	
+	<select id ="selectWorkListName" resultType="com.spring.grouping.work.domain.WorkListNameVO">
+	SELECT *
+	FROM T_WORK_LIST_NAME
+	WHERE SEQ_GRP_NUMBER = #{seq_grp_number}
+	</select>
+	
+	<select id = "selectWorkDetail" resultType="com.spring.grouping.work.domain.WorkVO">
+	SELECT *
+	FROM T_WORK_INFO
+	WHERE SEQ_WORK_NUMBER = #{seq_work_number}
+	
+	</select>
+	<update id = "updateListName" parameterType="hashMap">
+	UPDATE T_WORK_LIST_NAME
+		SET
+		 <choose>
+		 <when test="work_category.equals('first_list_name')">
+		 FIRST_LIST_NAME = #{list_name}
+		 </when>
+		  <when test="work_category.equals('second_list_name')">
+		 SECOND_LIST_NAME = #{list_name}
+		 </when>
+		  <when test="work_category.equals('third_list_name')">
+		 THIRD_LIST_NAME = #{list_name}
+		 </when>
+		  <when test="work_category.equals('fourth_list_name')">
+		 FOURTH_LIST_NAME = #{list_name}
+		 </when>
+		  <when test="work_category.equals('fifth_list_name')">
+		 FIFTH_LIST_NAME = #{list_name}
+		 </when>
+		 <when test="work_category.equals('sixth_list_name')">
+		 SIXTH_LIST_NAME = #{list_name}
+		 </when>
+		 </choose>
+		WHERE 
+		SEQ_GRP_NUMBER = #{seq_grp_number}
+	</update>
+	
+	<update id ="updateWork" parameterType="com.spring.grouping.work.domain.WorkVO">
+	 UPDATE T_WORK_INFO
+	 SET
+	 WORK_SUBJECT = #{work_subject}
+		, WORK_CONTENT = #{work_content}
+		, WORK_START_DATE = #{work_start_date}
+		, WORK_END_DATE = #{work_end_date}
+		, WORK_USER_ID = #{work_user_id}
+		, WORK_USER_NAME = #{work_user_name}
+		WHERE 
+		SEQ_WORK_NUMBER = #{seq_work_number}
+	
+	</update>
+	<delete id = "deleteWork" parameterType="String">
+	DELETE FROM T_WORK_INFO
+	WHERE SEQ_WORK_NUMBER = #{seq_work_number}
+	
+	</delete>
+</mapper>

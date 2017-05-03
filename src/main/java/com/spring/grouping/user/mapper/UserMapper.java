@@ -7,4 +7,5 @@ public interface UserMapper {
 	public int updateUserInfo(UserVO user);
 
 	public UserVO selectUserInfo(String user_id);
+	public String selectUserName(String user_id);
 }

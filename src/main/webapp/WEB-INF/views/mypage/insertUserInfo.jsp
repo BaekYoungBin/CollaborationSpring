@@ -37,53 +37,7 @@
 				alert("실패");
 			}
 		});
-		/* $("#form").validate({
-			submitHandler : function() {
-				var f = confirm("회원 정보 수정을 완료 하시겠습니까?");
-				if (f) {
-					
-					return true;
-				} 
-				else {
-					return false;
-				}
-			},
-			//규칙
-			rules : {
-				user_name : {
-					required : true,
-					minlength : 2
-				},
-				user_email : {
-					required : true,
-					minlength : 4,
-					email : true
-				},
-				user_pwd : {
-					required : true,
-					minlength : 4,
-					equalTo : user_pwd_confirm
-				}			
-
-			},
-			//규칙체크 실패시 출력될 메시지
-			messages : {
-				user_name : {
-					required : "필수로입력하세요",
-					minlength : "최소 2글자이상이어야 합니다"
-				},
-				user_email : {
-                    required : "필수로입력하세요",
-                    minlength : "최소 {0}글자이상이어야 합니다",
-                    email : "메일규칙에 어긋납니다"
-				},
-				user_pwd : {
-					required : "필수로입력하세요",
-					minlength : "최소 4글자이상이어야 합니다",
-					 equalTo : "비밀번호가 일치하지 않습니다."
-				}
-			}
-		}); */
+		
 
 	}
 </script>

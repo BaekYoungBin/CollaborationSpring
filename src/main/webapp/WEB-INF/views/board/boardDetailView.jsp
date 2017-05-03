@@ -34,7 +34,7 @@
 				loadCommunity();
 			},
 			error : function(jsonData) {
-				var data = jsonData.
+				
 				alert("실패");
 			}
 		});

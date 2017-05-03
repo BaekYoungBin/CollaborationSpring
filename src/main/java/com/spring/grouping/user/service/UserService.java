@@ -21,5 +21,8 @@ public class UserService{
 	public UserVO selectUserInfo(String user_id){
 		return userMapper.selectUserInfo(user_id);
 	}
+	public String selectUserName(String user_id){
+		return userMapper.selectUserName(user_id);
+	}
 	
 }

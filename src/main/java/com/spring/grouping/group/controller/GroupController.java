@@ -1,6 +1,8 @@
 package com.spring.grouping.group.controller;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
@@ -76,5 +78,19 @@ public class GroupController {
 		 System.out.println(seq_grp_number);
 		return service.outGroup(seq_grp_number, session);
 	   }
+	 @RequestMapping(value = "/joinGroupMain.do")
+	    public String joinGroupMain(String seq_grp_number, HttpSession session){
+		 System.out.println("어라근데이게들어왔네"+seq_grp_number);
+		 session.setAttribute("seq_grp_number", seq_grp_number);
+			return "redirect:../main/mainView.do";
+	   }
 	 
+	 @RequestMapping(value = "/inviteUser.do")
+	 @ResponseBody
+	 public int inviteUser(String user_id, HttpSession session){
+		 Map<String, Object> map = new HashMap<>();
+		 map.put("user_id", user_id);
+		 map.put("seq_grp_number", (String)session.getAttribute("seq_grp_number"));
+		 return service.inviteUser(map);
+	   }
 }
