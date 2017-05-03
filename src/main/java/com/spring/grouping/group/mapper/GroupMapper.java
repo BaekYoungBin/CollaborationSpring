@@ -11,7 +11,7 @@ public interface GroupMapper {
 	public int groupInUserInsert(Map<String, Object> map) throws Exception;
 	public int insertWorkListName(int seq_grp_number)throws Exception;
 	public List<GroupVO> selectNewestGroupList(String user_id);
-	
+	public String selectGroupTitle(String seq_grp_number);
 	public List<GroupVO> selectFavoriteGroupList(String user_id);
 	
 	public List<GroupVO> selectGroupList(String user_id);
@@ -22,4 +22,5 @@ public interface GroupMapper {
 	public int outGroup(Map<String, Object> map);
 	public int inviteUser(Map<String, Object> map);
 	public int selectMemberUser(Map<String, Object> map);
+	public int updateGrpUseHist(Map<String, Object> map);
 }

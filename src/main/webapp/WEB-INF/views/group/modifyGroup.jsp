@@ -16,72 +16,74 @@
 
 </head>
 <script>
-function updateFavorite(id){
-	$.ajax({
-		url : "/grouping/group/updateFavoriteGroupList.do",
-		data : {
-			"seq_grp_number" : id
+	function updateFavorite(id) {
+		$.ajax({
+			url : "/grouping/group/updateFavoriteGroupList.do",
+			data : {
+				"seq_grp_number" : id
 			},
-		dataType : 'json',
-		type : "post",
-		async : false,
-		success : function(jsonData) {
-			group_management();
-		},
-		error : function(jsonData) {
-			alert("실패");
+			dataType : 'json',
+			type : "post",
+			async : false,
+			success : function(jsonData) {
+				group_management();
+			},
+			error : function(jsonData) {
+				alert("실패");
+			}
+		});
+
+	}
+
+	function deleteGroup(id) {
+		var con_test = confirm("그룹을 삭제합니다. 정말로 삭제하시겠습니까?");
+		if (con_test == true) {
+			$.ajax({
+				url : "/grouping/group/deleteGroup.do",
+				data : {
+					"seq_grp_number" : id
+				},
+				dataType : 'json',
+				type : "post",
+				async : false,
+				success : function(jsonData) {
+
+					group_management();
+				},
+				error : function(jsonData) {
+					alert("실패");
+				}
+			});
+
 		}
-	});
-	
-}
 
-function deleteGroup(id){
-	var con_test = confirm("그룹을 삭제합니다. 정말로 삭제하시겠습니까?");
-	if(con_test == true){ 
-		$.ajax({
-			url : "/grouping/group/deleteGroup.do",
-			data : {
-				"seq_grp_number" : id
-				},
-			dataType : 'json',
-			type : "post",
-			async : false,
-			success : function(jsonData) {
-
-				group_management();
-			},
-			error : function(jsonData) {
-				alert("실패");
-			}
-		});
-		
 	}
-	
-}
-function outGroup(id){
-	var con_test = confirm("그룹을 탈퇴합니다. 정말로 탈퇴하시겠습니까?");
-	if(con_test == true){ 
-		$.ajax({
-			url : "/grouping/group/outGroup.do",
-			data : {
-				"seq_grp_number" : id
+	function outGroup(id) {
+		var con_test = confirm("그룹을 탈퇴합니다. 정말로 탈퇴하시겠습니까?");
+		if (con_test == true) {
+			$.ajax({
+				url : "/grouping/group/outGroup.do",
+				data : {
+					"seq_grp_number" : id
 				},
-			dataType : 'json',
-			type : "post",
-			async : false,
-			success : function(jsonData) {
-				group_management();
-			},
-			error : function(jsonData) {
-				alert("실패");
-			}
-		});
-		
+				dataType : 'json',
+				type : "post",
+				async : false,
+				success : function(jsonData) {
+					group_management();
+				},
+				error : function(jsonData) {
+					alert("실패");
+				}
+			});
+
+		}
+
 	}
-	
-}
+	function joinGroupMain1(seq_grp_number) {
+		alert("여기 불리는건 맞아요!!");
 
-
+	}
 </script>
 <body>
 
@@ -113,17 +115,19 @@ function outGroup(id){
 						<tbody id="datasection">
 							<c:forEach items="${favorite_group}" var="grp">
 								<tr>
-								<td class="favorite_td">
-											<button type="button"
-													class="btn btn-default btn-sm favorite-btn" id = "${grp.seq_grp_number}" onclick="updateFavorite(this.id)">
+									<td class="favorite_td">
+										<button type="button"
+											class="btn btn-default btn-sm favorite-btn"
+											id="${grp.seq_grp_number}" onclick="updateFavorite(this.id)">
 
-												<span class="glyphicon glyphicon-star" id = "${grp.seq_grp_number}">
-													</span>
-												</button></td>
+											<span class="glyphicon glyphicon-star"
+												id="${grp.seq_grp_number}"> </span>
+										</button>
+									</td>
 									<td>${grp.grp_title}</td>
 									<td>${grp.grp_content}</td>
 									<td>
-										<button id="${grp.seq_grp_number}" onclick="joinGroupMain(this.id);">접속</button>
+										<a href="/grouping/group/joinGroupMain.do?seq_grp_number=${grp.seq_grp_number}">접속</a>
 									</td>
 								</tr>
 							</c:forEach>
@@ -144,8 +148,8 @@ function outGroup(id){
 						<h3 class="panel-title">회원이 속한 모든 그룹</h3>
 					</div>
 					<div class="col col-xs-6 text-right">
-						<button type="button" class="btn btn-sm btn-primary btn-create" data-toggle="modal"
-							data-target="#reg_grp1">그룹 생성</button>
+						<button type="button" class="btn btn-sm btn-primary btn-create"
+							data-toggle="modal" data-target="#reg_grp1">그룹 생성</button>
 					</div>
 				</div>
 			</div>
@@ -173,17 +177,24 @@ function outGroup(id){
 									<c:choose>
 										<c:when test="${grp.grp_favorite_yn ne null}">
 											<td class="favorite_td">
-											<button type="button"
-													class="btn btn-default btn-sm favorite-btn" id = "${grp.seq_grp_number}" onclick="updateFavorite(this.id)">
+												<button type="button"
+													class="btn btn-default btn-sm favorite-btn"
+													id="${grp.seq_grp_number}"
+													onclick="updateFavorite(this.id)">
 
-												<span class="glyphicon glyphicon-star" id = "${grp.seq_grp_number}">
-													</span>
-												</button></td>
+													<span class="glyphicon glyphicon-star"
+														id="${grp.seq_grp_number}"> </span>
+												</button>
+											</td>
 										</c:when>
 										<c:otherwise>
 											<td class="favorite_td">
-												<button type="button" class="btn btn-default btn-sm favorite-btn" id = "${grp.seq_grp_number}" onclick="updateFavorite(this.id)">
-												<span class="glyphicon glyphicon-star-empty" id = "${grp.seq_grp_number}"></span>
+												<button type="button"
+													class="btn btn-default btn-sm favorite-btn"
+													id="${grp.seq_grp_number}"
+													onclick="updateFavorite(this.id)">
+													<span class="glyphicon glyphicon-star-empty"
+														id="${grp.seq_grp_number}"></span>
 												</button>
 											</td>
 										</c:otherwise>
@@ -191,26 +202,31 @@ function outGroup(id){
 									<td>${grp.grp_title}</td>
 									<td>${grp.grp_content}</td>
 									<td>
-										<button id="${grp.seq_grp_number}" onclick="joinGroupMain(this.id);">접속</button>
-									
-									
-									<c:set var="user_id" value="${user_id}" />
-										<c:choose>				
-										<c:when test="${grp.grp_leader_id eq user_id}">
-											
-												<button type="button" class="btn btn-default btn-sm favorite-btn" id = "${grp.seq_grp_number}" onclick="deleteGroup(this.id)">								
-												<span class="glyphicon glyphicon-trash" id = "${grp.seq_grp_number}"></span>
+										<a href="/grouping/group/joinGroupMain.do?seq_grp_number=${grp.seq_grp_number}">접속</a>
+										 <c:set
+											var="user_id" value="${user_id}" /> <c:choose>
+											<c:when test="${grp.grp_leader_id eq user_id}">
+
+												<button type="button"
+													class="btn btn-default btn-sm favorite-btn"
+													id="${grp.seq_grp_number}" onclick="deleteGroup(this.id)">
+													<span class="glyphicon glyphicon-trash"
+														id="${grp.seq_grp_number}"></span>
 												</button>
-											
-										</c:when>
-										<c:otherwise>
-										
-												<button type="button" class="btn btn-default btn-sm favorite-btn" id = "${grp.seq_grp_number}" onclick="outGroup(this.id)">								
-												<span class="glyphicon glyphicon-log-out" id = "${grp.seq_grp_number}"></span>
+
+											</c:when>
+											<c:otherwise>
+
+												<button type="button"
+													class="btn btn-default btn-sm favorite-btn"
+													id="${grp.seq_grp_number}" onclick="outGroup(this.id)">
+													<span class="glyphicon glyphicon-log-out"
+														id="${grp.seq_grp_number}"></span>
 												</button>
-										
-										</c:otherwise>
-									</c:choose></td>
+
+											</c:otherwise>
+										</c:choose>
+									</td>
 
 								</tr>
 							</c:forEach>
@@ -219,28 +235,11 @@ function outGroup(id){
 				</form>
 
 			</div>
-		<!-- 	<div class="panel-footer">
-				<div class="row">
-					<div class="col col-xs-4">Page 1 of 5</div>
-					<div class="col col-xs-8">
-						<ul class="pagination hidden-xs pull-right">
-							<li><a href="#">1</a></li>
-							<li><a href="#">2</a></li>
-							<li><a href="#">3</a></li>
-							<li><a href="#">4</a></li>
-							<li><a href="#">5</a></li>
-						</ul>
-						<ul class="pagination visible-xs pull-right">
-							<li><a href="#">«</a></li>
-							<li><a href="#">»</a></li>
-						</ul>
-					</div>
-				</div>
-			</div> -->
+			=
 		</div>
 
 	</div>
-<!-- 그룹 생성 모달 -->
+	<!-- 그룹 생성 모달 -->
 
 </body>
 </html>

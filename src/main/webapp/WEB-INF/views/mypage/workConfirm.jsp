@@ -10,19 +10,9 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-
-
 <!-- Always force latest IE rendering engine (even in intranet) & Chrome Frame
 Remove this if you use the .htaccess -->
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-
-<script src="http://code.jquery.com/jquery-latest.js"></script>
-<script
-	src="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
-<link rel="stylesheet"
-	href="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
-	<link rel="stylesheet" type="text/css"
-	href="/grouping/resources/stylesheets/mypage.css">
 </head>
 
 <body>

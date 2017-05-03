@@ -37,6 +37,9 @@ public class GroupService {
 		return groupMapper.selectGroupList(user_id);
 		
 	}
+	public String selectGroupTitle(String seq_grp_number){
+		return groupMapper.selectGroupTitle(seq_grp_number);
+	}
 	public List<GroupVO> selectNewestGroupList(String user_id){
 		System.out.println("세션 아이디는 : "+user_id);
 
@@ -104,6 +107,10 @@ public class GroupService {
 		}
 		else
 			return 0;
+	}
+	public int updateGrpUseHist(Map<String, Object> map) {
+		// TODO Auto-generated method stub
+		return groupMapper.updateGrpUseHist(map);
 	}
 	
 	

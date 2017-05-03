@@ -12,4 +12,5 @@ public interface BoardMapper {
 	BoardVO selectBoardDetail(String seq_board_number);
 	int updateBoard(BoardVO board);
 	int deleteBoard(BoardVO board);
+	List<BoardVO> selectGroupBoardList(String seq_grp_number);
 }

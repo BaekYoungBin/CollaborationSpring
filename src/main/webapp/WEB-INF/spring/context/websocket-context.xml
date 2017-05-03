@@ -9,12 +9,17 @@
 
 <websocket:handlers>
 	<websocket:mapping handler="chatHandler" path="/chat-ws"/>
-	
   <websocket:handshake-interceptors>
         <bean class="org.springframework.web.socket.server.support.HttpSessionHandshakeInterceptor"/>
     </websocket:handshake-interceptors>
-	
-	
+	<websocket:sockjs />
+</websocket:handlers>
+<bean id = "groupChatHandler" class="com.spring.grouping.handler.GroupChatHandler"/>
+<websocket:handlers>
+	<websocket:mapping handler="groupChatHandler" path="/group-chat-ws"/>
+  <websocket:handshake-interceptors>
+        <bean class="org.springframework.web.socket.server.support.HttpSessionHandshakeInterceptor"/>
+    </websocket:handshake-interceptors>
 	<websocket:sockjs />
 </websocket:handlers>
 

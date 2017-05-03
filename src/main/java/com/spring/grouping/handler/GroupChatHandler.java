@@ -13,34 +13,41 @@ import org.springframework.web.socket.WebSocketSession;
 import org.springframework.web.socket.handler.TextWebSocketHandler;
 
 
-public class ChatHandler extends TextWebSocketHandler {
+public class GroupChatHandler extends TextWebSocketHandler {
 	
 	private static final Logger logger = LoggerFactory.getLogger(ChatHandler.class);
 	/**
 	 * 접속관련 Event Method
 	 * param WebSocketSession 접속한 사용자
 	 */
-	Map <String, Object> groupMap = new HashMap<String, Object>();
-	private List<WebSocketSession> connectedUsers ;
+	private List<WebSocketSession> connectedUsers;
+	private Map<String, Object> groupmap;
 	
-	public ChatHandler(){
+	public GroupChatHandler(){
 		System.out.println("에코핸들러가 불립니다.");
+		groupmap = new HashMap<String, Object>();
 		connectedUsers = new ArrayList<WebSocketSession>();
 	}
 	
 	
+	@SuppressWarnings("unchecked")
 	@Override
 	public void afterConnectionEstablished(WebSocketSession session) throws Exception {
 		// TODO Auto-generated method stub
-
+		Map<String, Object> map = session.getAttributes();
+		String user_id = (String)map.get("user_id");
+		String seq_grp_number = (String)map.get("seq_grp_number");
+		logger.info(user_id + "님 접속");
+		logger.info("연결 IP:" + session.getRemoteAddress().getHostName());	
+		logger.info("연결 그룹 : " +seq_grp_number);
+	if(!groupmap.containsKey(seq_grp_number)){
+		groupmap.put(seq_grp_number, new ArrayList<WebSocketSession>());
+	}
+		List<WebSocketSession> conn = (List<WebSocketSession>) groupmap.get(seq_grp_number);
+		conn.add(session);
+		groupmap.put(seq_grp_number, conn);
 		
-		logger.info(session.getId() + "님 접속");
-		logger.info("연결 IP:" + session.getRemoteAddress().getHostName());
-		
-		
-		
-		connectedUsers.add(session);
-		
+/*		connectedUsers.add(session);	*/	
 	}
 	
 	
@@ -58,8 +65,11 @@ public class ChatHandler extends TextWebSocketHandler {
 
 		Map<String, Object> map = session.getAttributes();
 		String user_id = (String)map.get("user_id");
-		logger.info(user_id + "님이 메시지 전송 : " + message.getPayload());
-		for(WebSocketSession webSocketSession : connectedUsers){
+		String seq_grp_number = (String)map.get("seq_grp_number");
+		logger.info(user_id + "님이 "+seq_grp_number+"그룹에 메시지 전송 : " + message.getPayload());
+		
+		List<WebSocketSession> conn = (List<WebSocketSession>) groupmap.get(seq_grp_number);
+		for(WebSocketSession webSocketSession : conn){
 			if(!session.getId().equals(webSocketSession)){
 				webSocketSession.sendMessage(new TextMessage(user_id+" "+message.getPayload()));
 			}
@@ -76,9 +86,13 @@ public class ChatHandler extends TextWebSocketHandler {
 	@Override
 	public void afterConnectionClosed(WebSocketSession session, CloseStatus status) throws Exception {
 		// TODO Auto-generated method stub
-		logger.info(session.getId() + "님 접속 종료");
+		Map<String, Object> map = session.getAttributes();
+		String user_id = (String)map.get("user_id");
+		String seq_grp_number = (String)map.get("seq_grp_number");
 		
-		connectedUsers.remove(session);
+		logger.info(user_id + "님 접속 종료");
+		List<WebSocketSession> conn = (List<WebSocketSession>) groupmap.get(seq_grp_number);
+		conn.remove(session);
 	}
 
 	

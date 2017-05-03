@@ -75,7 +75,7 @@
 										<table class="table table-striped table-bordered table-list">
 											<thead>
 												<tr>
-													<th>즐겨찾기 설정</th>
+													
 													<th>그룹 이름</th>
 													<th>그룹 설명</th>
 													<th>그룹 설정</th>
@@ -84,10 +84,7 @@
 											<tbody id="datasection">
 												<c:forEach items="${group}" var="grp">
 													<tr>
-														<td class="favorite_td"><button type="button"
-																class="btn btn-default btn-sm">
-																<span class="glyphicon glyphicon-star"></span>
-															</button></td>
+														
 														<td>${grp.grp_title}</td>
 														<td>${grp.grp_content}</td>
 														<td>

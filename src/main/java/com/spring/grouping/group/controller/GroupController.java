@@ -80,8 +80,13 @@ public class GroupController {
 	   }
 	 @RequestMapping(value = "/joinGroupMain.do")
 	    public String joinGroupMain(String seq_grp_number, HttpSession session){
-		 System.out.println("어라근데이게들어왔네"+seq_grp_number);
+		 System.out.println("여기 불리는거 맞아요");
 		 session.setAttribute("seq_grp_number", seq_grp_number);
+		 Map<String, Object> map = new HashMap<String, Object>();
+		 map.put("seq_grp_number", seq_grp_number);
+		 map.put("user_id", (String)session.getAttribute("user_id"));
+		 service.updateGrpUseHist(map);
+		 
 			return "redirect:../main/mainView.do";
 	   }
 	 

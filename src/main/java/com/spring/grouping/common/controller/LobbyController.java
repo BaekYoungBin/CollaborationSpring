@@ -1,4 +1,6 @@
 package com.spring.grouping.common.controller;
+import javax.servlet.http.HttpSession;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -6,7 +8,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping(value = "/lobby")
 public class LobbyController {
 	   @RequestMapping(value = "/lobbyView.do")
-	    public String lobbyView(){
+	    public String lobbyView(HttpSession session){
+		   session.setAttribute("seq_grp_number", null);
 	        return "/lobby/lobbyView";
 	   }   
 	  

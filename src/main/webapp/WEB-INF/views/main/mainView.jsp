@@ -6,13 +6,10 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
+
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-<script
-	src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/jquery.validate.js"></script>
-<script src="<c:url value="/resources/javascripts/sockjs.js"/>"></script>
 <script src="<c:url value="/resources/javascripts/jquery-ui.min.js"/>"></script>
-
 <script
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <link rel="stylesheet"
@@ -23,11 +20,40 @@
 	href="/grouping/resources/stylesheets/main.css">
 <link rel="stylesheet" type="text/css"
 	href="/grouping/resources/stylesheets/work.css">
+	<script src="<c:url value="/resources/javascripts/sockjs.js"/>"></script>
 </head>
 <script>
 	var url;
-	$(document).ready(function() {
+	var sock = null;
+	$(function() {
 		$("#innerPage").load("/grouping/work/workView.do");
+		sock = new SockJS("../group-chat-ws");
+		
+		sock.onopen = function() {
+			sock.send("반갑습니다.");
+		}
+		sock.onmessage = function(evt) {
+			/* if(id 가 나랑 같으면) 
+				right clearfix
+				
+				else if 나랑다르면
+				left clearfix
+				
+			 */
+
+			$("#chatarea").append('<li>' + evt.data + '</li>');
+
+		}
+		sock.onclose = function() {
+			sock.send("저 퇴장");
+		}
+		$("#btn-chat").click(function() {
+			if ($("#btn-input").val() != "") {
+				sock.send($("#btn-input").val());
+
+				$("#btn-input").val("");
+			}
+		})
 	});
 
 	function loadWork() {
@@ -82,10 +108,11 @@
 			}
 		});
 	}
-	
+
+		
 </script>
 <body>
-	<div class="prjname">Grouping</div>
+	<div class="prjname">${grp_title }</div>
 	<nav class="navbar navbar-default navbar-static-top navbar-inverse"
 		role="navigation">
 	<div class="container-fluid">

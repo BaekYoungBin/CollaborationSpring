@@ -44,6 +44,7 @@ public class BoardService {
 		   Map<String, Object> map = new HashMap<>();
 		   map.put("user_id",(String)session.getAttribute("user_id"));
 		   map.put("user_name", (String)session.getAttribute("user_name"));
+		   map.put("seq_grp_number", (String)session.getAttribute("seq_grp_number"));
 		   map.put("board", board); 
 		return boardMapper.insertBoard(map);
 	}
@@ -54,5 +55,9 @@ public class BoardService {
 	}
 	public int deleteBoard(BoardVO board){
 		return boardMapper.deleteBoard(board);
+	}
+	public List<BoardVO> selectGroupBoardList(String seq_grp_number) {
+		// TODO Auto-generated method stub
+		return boardMapper.selectGroupBoardList(seq_grp_number);
 	}
 }

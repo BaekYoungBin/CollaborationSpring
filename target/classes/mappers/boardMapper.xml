@@ -6,9 +6,15 @@
 	<select id="selectBoardList" parameterType="int" resultType="com.spring.grouping.board.domain.BoardVO">
 		select * 
 		from t_board_info
-		ORDER BY SEQ_BOARD_NUMBER DESC
+		where SEQ_GRP_NUMBER is null
+		ORDER BY SEQ_BOARD_NUMBER DESC		
 	</select>
-
+<select id="selectGroupBoardList" parameterType="String" resultType="com.spring.grouping.board.domain.BoardVO">
+		select * 
+		from t_board_info
+		where SEQ_GRP_NUMBER = #{seq_grp_number}
+		ORDER BY SEQ_BOARD_NUMBER DESC		
+	</select>
 	<select id="selectBoardListCnt" resultType="int">
 		select count(*) 
 		from t_board_info
@@ -21,9 +27,9 @@
 	</select>
 	<insert id="insertBoard" parameterType="hashMap">
 		INSERT INTO T_BOARD_INFO
-		(BOARD_TITLE, BOARD_CONTENT, BOARD_REG_DT, BOARD_REG_USER_ID, BOARD_REG_USER_NAME, BOARD_UDT_DT, BOARD_UDT_USER_ID)
+		(BOARD_TITLE, BOARD_CONTENT, BOARD_REG_DT, BOARD_REG_USER_ID, BOARD_REG_USER_NAME, BOARD_UDT_DT, BOARD_UDT_USER_ID, SEQ_GRP_NUMBER)
 		VALUES
-		(#{board.board_title}, #{board.board_content}, CURRENT_TIMESTAMP, #{user_id}, #{user_name}, #{board.board_udt_dt}, #{board.board_udt_user_id})
+		(#{board.board_title}, #{board.board_content}, CURRENT_TIMESTAMP, #{user_id}, #{user_name}, #{board.board_udt_dt}, #{board.board_udt_user_id}, #{seq_grp_number})
 	</insert>
 	
 	<update id="updateBoard" parameterType="com.spring.grouping.board.domain.BoardVO">

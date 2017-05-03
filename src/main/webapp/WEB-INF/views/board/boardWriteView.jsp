@@ -6,10 +6,6 @@
 
 <html>
 
-
-<link rel="stylesheet" type="text/css"
-	href="/grouping/resources/stylesheets/main.css">
-
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
@@ -26,13 +22,8 @@ $.ajax({
 		loadCommunity();
 	}
 });
-
 }
-
 </script>
-
-
-
 <body>
 	<div class="col-md-10 col-md-offset-1">
 		<div class="panel panel-default panel-table">

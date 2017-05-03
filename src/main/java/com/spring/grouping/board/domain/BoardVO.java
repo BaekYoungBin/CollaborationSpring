@@ -5,6 +5,17 @@ import java.sql.Date;
 public class BoardVO {
 
 	int seq_board_number;	
+	int seq_grp_number;
+	public int getSeq_grp_number() {
+		return seq_grp_number;
+	}
+
+	public void setSeq_grp_number(int seq_grp_number) {
+		this.seq_grp_number = seq_grp_number;
+	}
+
+
+
 	String board_title;
 	String board_content;
 	String board_reg_dt;
@@ -12,6 +23,7 @@ public class BoardVO {
 	String board_reg_user_name;
 	String board_udt_dt;
 	String board_udt_user_id;
+	
 	public int getSeq_board_number() {
 		return seq_board_number;
 	}

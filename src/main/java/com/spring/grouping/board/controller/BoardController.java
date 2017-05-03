@@ -23,20 +23,24 @@ public class BoardController {
 	   @RequestMapping(value = "/boardView.do")
 	    public String boardView(HttpSession session){
 		   System.out.println("여기 불렸습니다.");
-		   if(session.getAttribute("group_id")==null )
+		   if(session.getAttribute("seq_grp_number")==null)
 	        return "/board/communityView";
 		   else
 		   {
 			   //그룹아이디 가지고 board가기
-				return "/board/communityView";
+				return "/board/groupBoardView";
 		   }
 	    }
 	   @RequestMapping(value = "/boardViewAjax.do")
 	   @ResponseBody
-	    public Map<String, Object> boardViewAjax(){
-		   List<BoardVO> boardList = service.selectBoardList();
-		   System.out.println(boardList.size());
-		   
+	    public Map<String, Object> boardViewAjax(HttpSession session){
+		   List<BoardVO> boardList;
+		   if((String)session.getAttribute("seq_grp_number")!=null){
+			   boardList = service.selectGroupBoardList((String)session.getAttribute("seq_grp_number"));
+		   }
+		   else{
+			   boardList = service.selectBoardList();
+		   }
 		   Map<String, Object> map = new HashMap<String, Object>();
 		   map.put("boardList", boardList);
 		   if(map.size() == 0)
@@ -62,6 +66,8 @@ public class BoardController {
 
 		 return service.insertBoard(board, session);
 	    }
+	   
+	   
 	   
 	   @RequestMapping(value="/modifyBoard.do")
 	   @ResponseBody

@@ -9,7 +9,12 @@
 		WHERE SEQ_WORK_NUMBER = #{seq_work_number}
 	
 	</select>
+	<select id ="selectGroupTitle" resultType="String">
+		SELECT GRP_TITLE
+		FROM T_GRP_INFO
+		WHERE SEQ_GRP_NUMBER = #{seq_grp_number}
 	
+	</select>
 	
 	
 	<insert id="groupInsert" parameterType="com.spring.grouping.group.domain.GroupVO"
@@ -145,4 +150,11 @@
 		SEQ_GRP_NUMBER = #{seq_grp_number} AND GRP_REG_USER_ID = #{user_id}
 	
 	</delete>
+	<update id="updateGrpUseHist" parameterType="hashMap">
+		UPDATE T_USER_IN_GROUP
+		SET
+		USE_DT = CURRENT_TIMESTAMP
+		WHERE 
+		SEQ_GRP_NUMBER=#{seq_grp_number} AND USER_ID = #{user_id}
+	</update>
 </mapper>
