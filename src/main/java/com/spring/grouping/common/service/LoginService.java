@@ -30,6 +30,11 @@ public class LoginService {
 	public int userInsert(UserVO user)throws Exception {
 		return loginMapper.userInsert(user);
 	}
+
+	public UserVO passwordFind(String user_email) {
+		// TODO Auto-generated method stub
+		return loginMapper.passwordFind(user_email);
+	}
 	
 	
 	

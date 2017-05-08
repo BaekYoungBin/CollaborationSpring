@@ -21,8 +21,7 @@ public class ChatHandler extends TextWebSocketHandler {
 	 * param WebSocketSession 접속한 사용자
 	 */
 	Map <String, Object> groupMap = new HashMap<String, Object>();
-	private List<WebSocketSession> connectedUsers ;
-	
+	private List<WebSocketSession> connectedUsers ;	
 	public ChatHandler(){
 		System.out.println("에코핸들러가 불립니다.");
 		connectedUsers = new ArrayList<WebSocketSession>();
@@ -31,14 +30,9 @@ public class ChatHandler extends TextWebSocketHandler {
 	
 	@Override
 	public void afterConnectionEstablished(WebSocketSession session) throws Exception {
-		// TODO Auto-generated method stub
-
-		
+		// TODO Auto-generated method stub	
 		logger.info(session.getId() + "님 접속");
 		logger.info("연결 IP:" + session.getRemoteAddress().getHostName());
-		
-		
-		
 		connectedUsers.add(session);
 		
 	}
@@ -57,11 +51,12 @@ public class ChatHandler extends TextWebSocketHandler {
 		// TODO Auto-generated method stub
 
 		Map<String, Object> map = session.getAttributes();
-		String user_id = (String)map.get("user_id");
-		logger.info(user_id + "님이 메시지 전송 : " + message.getPayload());
+		String user_name = (String)map.get("user_name");
+		logger.info(user_name + "님이 메시지 전송 : " + message.getPayload());
+		
 		for(WebSocketSession webSocketSession : connectedUsers){
 			if(!session.getId().equals(webSocketSession)){
-				webSocketSession.sendMessage(new TextMessage(user_id+" "+message.getPayload()));
+				webSocketSession.sendMessage(new TextMessage(user_name+" "+message.getPayload()));
 			}
 		}
 	}

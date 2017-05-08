@@ -10,6 +10,14 @@ public class UserVO {
 	String reg_user_id;
 	String udt_dt;
 	String udt_user_id;
+	public UserVO(){
+		
+	}
+	public UserVO(String user_id, String user_name) {
+		// TODO Auto-generated constructor stub
+		this.user_id = user_id;
+		this.user_name = user_name;
+	}
 	public String getUser_id() {
 		return user_id;
 	}

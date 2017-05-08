@@ -14,6 +14,8 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.spring.grouping.group.domain.GroupVO;
 import com.spring.grouping.group.service.GroupService;
+import com.spring.grouping.handler.GroupChatHandler;
+import com.spring.grouping.user.domain.UserVO;
 
 /**
  * 그룹 컨트롤러
@@ -98,4 +100,12 @@ public class GroupController {
 		 map.put("seq_grp_number", (String)session.getAttribute("seq_grp_number"));
 		 return service.inviteUser(map);
 	   }
+	 @RequestMapping(value = "/accessUser.do")
+	 @ResponseBody
+	 public List<UserVO> accessUser(HttpSession session){
+		 List<UserVO> userlist = GroupChatHandler.getCurrentUser((String)session.getAttribute("seq_grp_number"));
+		
+		 return userlist;
+	   }
+
 }

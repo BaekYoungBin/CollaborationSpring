@@ -56,7 +56,10 @@
 		<property name="mapperInterface" value="com.spring.grouping.work.mapper.WorkMapper" />
 		<property name="sqlSessionFactory" ref="sqlSessionFactory" />
 	</bean>
-
+	<bean id="fileMapper" class="org.mybatis.spring.mapper.MapperFactoryBean">
+		<property name="mapperInterface" value="com.spring.grouping.file.mapper.FileMapper" />
+		<property name="sqlSessionFactory" ref="sqlSessionFactory" />
+	</bean>
 
 	
 	<tx:annotation-driven/>	

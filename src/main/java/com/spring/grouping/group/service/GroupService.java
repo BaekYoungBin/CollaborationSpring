@@ -11,9 +11,12 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.transaction.interceptor.TransactionAspectSupport;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.spring.grouping.group.domain.GroupVO;
 import com.spring.grouping.group.mapper.GroupMapper;
+import com.spring.grouping.handler.GroupChatHandler;
+import com.spring.grouping.user.domain.UserVO;
 
 @Transactional
 @Service
@@ -102,16 +105,22 @@ public class GroupService {
 	}
 	public int inviteUser(Map<String, Object> map) {
 		// TODO Auto-generated method stub
-		if(groupMapper.selectMemberUser(map) == 0){
-		return groupMapper.inviteUser(map);
+		System.out.println(map.get("user_id"));
+		System.out.println(map.get("seq_grp_number"));
+		if(groupMapper.selectMemberUser(map) ==0){
+			System.out.println("초대 성공");
+			return groupMapper.inviteUser(map);
 		}
-		else
+		else{
+		System.out.println("초대 실패");
 			return 0;
-	}
+
+		}
+		}
 	public int updateGrpUseHist(Map<String, Object> map) {
 		// TODO Auto-generated method stub
 		return groupMapper.updateGrpUseHist(map);
 	}
-	
+
 	
 }

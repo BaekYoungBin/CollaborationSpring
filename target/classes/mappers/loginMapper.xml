@@ -15,4 +15,10 @@
 		USER_EMAIL) values(#{user_id}, #{user_pwd}, #{user_name},
 		#{user_email})	
 	</insert>
+	<select id ="passwordFind" parameterType ="String" resultType="com.spring.grouping.user.domain.UserVO">
+	SELECT *
+	FROM T_USER_INFO
+	WHERE
+	USER_EMAIL = #{user_email}
+	</select>
 </mapper>

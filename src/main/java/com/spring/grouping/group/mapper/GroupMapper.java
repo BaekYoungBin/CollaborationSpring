@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.spring.grouping.group.domain.GroupVO;
+import com.spring.grouping.user.domain.UserVO;
 
 public interface GroupMapper {
 

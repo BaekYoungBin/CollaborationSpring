@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.spring.grouping.file.mapper.FileMapper">
+
+	<insert id="insertFile" parameterType="com.spring.grouping.file.domain.FileVO">
+		INSERT INTO T_FILE_INFO (SEQ_GRP_NUMBER, FILE_TITLE,
+		 FILE_CONTENT,
+		FILE_PATH, FILE_REG_DT, FILE_REG_USER_ID, FILE_REG_USER_NAME, FILE_NAME, FILE_UDT_DT)
+		values(#{seq_grp_number}, #{file_title},
+		#{file_content},#{file_path},CURRENT_TIMESTAMP,#{file_reg_user_id}, #{file_reg_user_name}, #{file_name}, CURRENT_TIMESTAMP)
+		
+	</insert>
+	<select id = "selectFileInfo" parameterType="String" resultType = "com.spring.grouping.file.domain.FileVO">
+		SELECT *
+		FROM T_FILE_INFO
+		WHERE SEQ_FILE_NUMBER = #{seq_file_number}
+	
+	</select>
+	<select id = "selectFileList" parameterType="String" resultType="com.spring.grouping.file.domain.FileVO">
+		SELECT *
+		FROM T_FILE_INFO
+		WHERE SEQ_GRP_NUMBER = #{seq_grp_number}
+	</select>
+	<update id = "updateFileInfo" parameterType="com.spring.grouping.file.domain.FileVO">
+		 UPDATE T_FILE_INFO
+	 SET
+	 FILE_TITLE = #{file_title}
+		, FILE_CONTENT = #{file_content}
+		, FILE_UDT_DT = CURRENT_TIMESTAMP		
+		WHERE 
+		SEQ_FILE_NUMBER = #{seq_file_number}
+	</update>
+	<delete id = "deleteFileInfo" parameterType="int">
+		DELETE FROM T_FILE_INFO
+		WHERE SEQ_FILE_NUMBER = #{seq_file_number}
+	</delete>
+</mapper>

@@ -5,6 +5,7 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.spring.grouping.common.domain.Constants;
 import com.spring.grouping.common.service.LoginService;
@@ -35,9 +36,7 @@ public class LoginController{
 	public String registerForm(){	 	
     	return "/login/registerView";	
 	}
-    
-    
-    
+
     @RequestMapping(value = "/register.do")
   	public String register(UserVO user) throws Exception{	
     	System.out.println("등록폼에 왔습니다.");
@@ -51,11 +50,14 @@ public class LoginController{
 	 * 	@return
 	 */  
     @RequestMapping(value = "/passwordFindForm.do")
-  	public String passwordFind(){	
-    	
-      	return "/login/passwordFindForm";
+  	public String passwordFindForm(String user_email){	
+      	return "login/passwordFindForm";
   	}
-   
+    @RequestMapping(value = "/passwordFind.do")
+    @ResponseBody
+  	public UserVO passwordFind(String user_email){	
+      	return service.passwordFind(user_email);
+  	}
     /**
      * 로그인 요청
      * @param session

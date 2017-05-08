@@ -45,7 +45,7 @@
 	SELECT count(*)
 	FROM T_USER_IN_GROUP
 	WHERE
-	USER_ID = #{user_id}
+	USER_ID = #{user_id} AND SEQ_GRP_NUMBER = #{seq_grp_number}
 	
 	</select>
 	

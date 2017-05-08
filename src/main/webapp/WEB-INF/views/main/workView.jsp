@@ -12,22 +12,15 @@
 <script>
 	$(function() {
 		var member = "";
-		$
-				.getJSON(
-						'/grouping/work/selectMemberList.do',
+		$.getJSON('/grouping/work/selectMemberList.do',
 						function(jsonData) {
 							var dataform = JSON.stringify(jsonData);
 							var temp = JSON.parse(dataform);
-							$
-									.each(
-											temp,
-											function(key, value) {
-												member += "<input type='checkbox' id = '"+value.user_id+"' name='work_user_id' value='" + value.user_id + "'>"
+							$.each(temp,function(key, value) {
+												member += "<input type='radio' id = '"+value.user_id+"' name='work_user_id' value='" + value.user_id + "'>"
 														+ value.user_name;
-												
 												$("#memberlist").html(member);
-												$("#memberlist2").html(member);
-												
+												$("#memberlist2").html(member);		
 											});
 						});
 
@@ -35,7 +28,6 @@
 						function(jsonData) {
 							var dataform = JSON.stringify(jsonData);
 							var temp = JSON.parse(dataform);
-			
 							var list = new Array();
 							list[0] = '';
 							list[1] = '';
@@ -43,9 +35,7 @@
 							list[3] = '';
 							list[4] = '';
 							list[5] = '';
-							
 							$.each(temp,function(key, value) {
-								
 												if (value.work_category == "first_list_name") {
 													list[0] += "<span class='list-group-item list-group-item-action'>업무 이름:"
 															+ "<a href='javascript:loadDetailWork("
@@ -101,12 +91,9 @@
 													$("#sixth-list").html(
 															list[5]);
 												}
-
 											});
 						});
-
 	});
-
 	function loadDetailWork(seq_work_number) {
 		$.ajax({
 			url : "/grouping/work/selectWorkDetail.do",
@@ -122,28 +109,24 @@
 				$("#work_start_date").val(jsonData.work_start_date);
 				$("#work_end_date").val(jsonData.work_end_date);
 				$("#work_content").val(jsonData.work_content);
-				$("input:checkbox[id='"+jsonData.work_user_id+"']").prop("checked", true);
+				$("input:radio[id='"+jsonData.work_user_id+"']").prop("checked", true);
+				$("input[name='work_user_id']").attr("disabled", true);  
 				$("#workdetailmodal").modal('show');			
 			},
 			error : function(jsonData) {
 				alert("실패");
 			}
 		});
-
 	} 
-
-	function loadAddWork(id) {
-		
+	function loadAddWork(id) {		
 		$("#add_work_category").val(id);
 		$("#addworkmodal").modal('show');
 	}
-	
 	function loadnamemodify(id){
 		
 		$("#work_category").val(id);
 		$("#modifylistname").modal('show');
-	}
-	
+	}	
 	function addwork(){
 		$.ajax({
 			url : "/grouping/work/workRegister.do",
@@ -178,7 +161,7 @@
 	}
 	function modifywork(){
 
-		
+		$("input[name='work_user_id']").attr("disabled", false);  
 	 		$("#work_subject").removeAttr('disabled');
 			$("#work_start_date").removeAttr('disabled');
 			$("#work_end_date").removeAttr('disabled'); 

@@ -66,7 +66,7 @@
 	$(function() {
 		sock = new SockJS("../chat-ws");
 		sock.onopen = function() {
-			sock.send("반갑습니다.");
+			sock.send("님이 접속하셨습니다.");
 		}
 		sock.onmessage = function(evt) {
 			/* if(id 가 나랑 같으면) 
@@ -89,8 +89,17 @@
 
 				$("#btn-input").val("");
 			}
-		})
+		});
+		$('#btn-input').keyup(function(e) {
+			if (e.which == 13) {/* 13 == enter key@ascii */
+				if ($("#btn-input").val() != "") {
+					sock.send($("#btn-input").val());
+					$("#btn-input").val("");
+				}
+			}
+		});
 	})
+	
 </script>
 <body>
 	<div class="prjname">Grouping</div>
