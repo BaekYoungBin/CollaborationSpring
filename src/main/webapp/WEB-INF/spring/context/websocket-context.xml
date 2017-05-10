@@ -5,8 +5,8 @@
 	xsi:schemaLocation="http://www.springframework.org/schema/websocket http://www.springframework.org/schema/websocket/spring-websocket-4.3.xsd
 		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
 
+<!-- 전체 채팅방 핸들러 -->
 <bean id = "chatHandler" class="com.spring.grouping.handler.ChatHandler"/>
-
 <websocket:handlers>
 	<websocket:mapping handler="chatHandler" path="/chat-ws"/>
   <websocket:handshake-interceptors>
@@ -14,6 +14,8 @@
     </websocket:handshake-interceptors>
 	<websocket:sockjs />
 </websocket:handlers>
+
+<!-- 그룹 채팅방 핸들러 -->
 <bean id = "groupChatHandler" class="com.spring.grouping.handler.GroupChatHandler"/>
 <websocket:handlers>
 	<websocket:mapping handler="groupChatHandler" path="/group-chat-ws"/>
@@ -22,5 +24,4 @@
     </websocket:handshake-interceptors>
 	<websocket:sockjs />
 </websocket:handlers>
-
 </beans>

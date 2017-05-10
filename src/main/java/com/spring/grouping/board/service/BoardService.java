@@ -18,28 +18,27 @@ import com.spring.grouping.board.mapper.BoardMapper;
 public class BoardService {
 	@Autowired
 	private BoardMapper boardMapper;
-	
-	
-	
+		
 	/**
-	 * 유저 로그인
-	 * @param request
-	 * @param response
-	 * @param model
-	 * @return
-	 * @throws Exception
+	 * 전체게시판 리스트 조회
+	 * @return List<BoardVO>
 	 */
-	public List<BoardVO> selectBoardList(){
+	public List<BoardVO> selectFreeBoardList(){
 		return boardMapper.selectBoardList();
 	};
-	public int selectBoardListCnt(){
-		return boardMapper.selectBoardListCnt();
-	};
 	
-	
+	/**
+	 * 게시판 상세 조회
+	 * @return BoardVO
+	 */
 	public BoardVO selectBoardDetail(String seq_board_number){
 		return boardMapper.selectBoardDetail(seq_board_number);
 	}
+	
+	/**
+	 * 게시글 생성
+	 * @return
+	 */
 	public int insertBoard(BoardVO board, HttpSession session){
 		   Map<String, Object> map = new HashMap<>();
 		   map.put("user_id",(String)session.getAttribute("user_id"));
@@ -49,13 +48,26 @@ public class BoardService {
 		return boardMapper.insertBoard(map);
 	}
 	
-	
+	/**
+	 * 게시글 수정
+	 * @return
+	 */
 	public int updateBoard(BoardVO board){
 		return boardMapper.updateBoard(board);
 	}
+	
+	/**
+	 * 게시글 삭제
+	 * @return
+	 */
 	public int deleteBoard(BoardVO board){
 		return boardMapper.deleteBoard(board);
 	}
+	
+	/**
+	 * 그룹 게시판 리스트 조회
+	 * @return
+	 */
 	public List<BoardVO> selectGroupBoardList(String seq_grp_number) {
 		// TODO Auto-generated method stub
 		return boardMapper.selectGroupBoardList(seq_grp_number);

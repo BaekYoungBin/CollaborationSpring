@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration
+PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+ "http://mybatis.org/dtd/mybatis-3-config.dtd">
+
+<configuration>
+		<typeAliases>
+			<typeAlias type="com.spring.grouping.board.domain.BoardVO"
+				alias="BoardVO" />
+			<typeAlias type="com.spring.grouping.mypage.domain.UserVO"
+				alias="UserVO" />
+			<typeAlias type="com.spring.grouping.work.domain.WorkVO"
+				alias="WorkVO" />
+			<typeAlias type="com.spring.grouping.group.domain.GroupVO"
+				alias="GroupVO" />
+			<typeAlias type="com.spring.grouping.file.domain.FileVO"
+				alias="FileVO" />
+			<typeAlias type="com.spring.grouping.work.domain.WorkListNameVO"
+				alias="WorkListNameVO" />
+		</typeAliases>
+</configuration>
+

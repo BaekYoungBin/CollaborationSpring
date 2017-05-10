@@ -6,7 +6,6 @@
 		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.3.xsd">
 
 	<aop:aspectj-autoproxy/>
-
+	<!-- 로그 AOP -->
 	<bean id="loggerAspect" class="com.spring.grouping.common.aop.LoggerAspect"/>
-	
 </beans>

@@ -1,6 +1,8 @@
 package com.spring.grouping.work.domain;
 
 import java.sql.Date;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 
 public class WorkVO {
 	String seq_work_number;
@@ -12,6 +14,8 @@ public class WorkVO {
 	String work_user_id;
 	String work_user_name;
 	String work_category;
+	
+	
 	public String getWork_category() {
 		return work_category;
 	}
@@ -45,14 +49,14 @@ public class WorkVO {
 	public Date getWork_start_date() {
 		return work_start_date;
 	}
-	public void setWork_start_date(Date work_start_date) {
+	public void setWork_start_date(Date work_start_date) throws ParseException {
 		this.work_start_date = work_start_date;
 	}
 	public Date getWork_end_date() {
 		return work_end_date;
 	}
-	public void setWork_end_date(Date work_end_date) {
-		this.work_end_date = work_end_date;
+	public void setWork_end_date(Date work_end_date) throws ParseException {
+		this.work_end_date =work_end_date;
 	}
 	public String getWork_user_id() {
 		return work_user_id;

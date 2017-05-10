@@ -1,88 +1,107 @@
 package com.spring.grouping.common.controller;
-import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
-
 import com.spring.grouping.common.domain.Constants;
 import com.spring.grouping.common.service.LoginService;
-import com.spring.grouping.user.domain.UserVO;
+import com.spring.grouping.mypage.domain.UserVO;
+
 /**
- * 로그인 컨트롤러
+ * 로그인 컨트롤러 : 로그인 화면, 로그인, 회원 가입 화면, 회원가입, 비밀번호 찾기 화면, 비밀번호 찾기
  */
 @Controller
 @RequestMapping(value = "/login")
-public class LoginController{
+public class LoginController {
 	@Autowired
 	LoginService service;
-    /**
-     * 로그인 폼
-     * @return
-     */
-    @RequestMapping(value = "/loginView.do")
-    public String loginForm(){
-    	/*만약 세션이있으면 프로젝트로가도록하기*/
-        return "/login/loginView";
-    }
-    
-    /**
-	 * 회원가입 폼
-	 * 	@return
-	 */  
-    @RequestMapping(value = "/registerForm.do")
-	public String registerForm(){	 	
-    	return "/login/registerView";	
+
+	/**
+	 * 로그인 화면
+	 * @return
+	 */
+	@RequestMapping(value = "/loginView.do")
+	public String loginView() throws Exception{
+		return "/login/loginView";
 	}
 
-    @RequestMapping(value = "/register.do")
-  	public String register(UserVO user) throws Exception{	
-    	System.out.println("등록폼에 왔습니다.");
-    	System.out.println(user.getUser_name());
-    	int add = service.userInsert(user);
-    	System.out.println(add);
-      	return "/login/loginView";	
-  	}
-    /**
-	 * 비밀번호 찾기 폼
-	 * 	@return
-	 */  
-    @RequestMapping(value = "/passwordFindForm.do")
-  	public String passwordFindForm(String user_email){	
-      	return "login/passwordFindForm";
-  	}
-    @RequestMapping(value = "/passwordFind.do")
-    @ResponseBody
-  	public UserVO passwordFind(String user_email){	
-      	return service.passwordFind(user_email);
-  	}
-    /**
-     * 로그인 요청
-     * @param session
-     * @param user
-     * @return
-     * @throws Exception
-     */
-	@RequestMapping(value = "/signIn.do")
-	public String signIn(HttpSession session, UserVO user, HttpServletResponse response) throws Exception {	
-		System.out.println(user.getUser_id());
-		System.out.println(user.getUser_pwd());
+	/**
+	 * 로그인
+	 * @return
+	 * @throws Exception
+	 */
+	@RequestMapping(value = "/excuteLogin.do")
+	public String excuteLogin(HttpSession session, UserVO user) throws Exception {
 		String user_name = service.userLogin(user);
-		System.out.println(user_name);
-		if(user_name != null){
+		if (user_name != null) {
 			session.setAttribute("Auth", Constants.LOGIN_TRUE);
 			session.setAttribute("user_id", user.getUser_id());
 			session.setAttribute("user_name", user_name);
 			return "redirect:../lobby/lobbyView.do";
-		}
-		else{
+		} else {
 			session.invalidate();
-		return "login/loginView";
+			return "login/loginView";
+		}
+
+	}
+	
+	/**
+	 * 회원 아이디 중복
+	 * @return
+	 * @throws Exception
+	 */
+	@RequestMapping(value = "/checkId.do")
+	@ResponseBody
+	public String checkId(String user_id) throws Exception {
+	
+		if(service.checkId(user_id) == 1){
+			return "false";
+		}
+		else
+		{
+			return "true";
 		}
 		
 	}
-
 	
+	/**
+	 * 회원가입 화면
+	 * @return
+	 */
+	@RequestMapping(value = "/registerUserView.do")
+	public String registerUserView() throws Exception{
+		return "/login/registerUserView";
+	}
+
+	/**
+	 * 회원 가입
+	 * @return
+	 * @throws Exception
+	 */
+	@RequestMapping(value = "/insertUser.do")
+	public String insertUser(UserVO user) throws Exception {
+		service.insertUser(user);
+		return "/login/loginView";
+	}
+
+	/**
+	 * 비밀번호 찾기화면
+	 * @return
+	 */
+	@RequestMapping(value = "/findPasswordView.do")
+	public String findPasswordView() throws Exception{
+		return "login/findPasswordView";
+	}
+
+	/**
+	 * 비밀번호 찾기
+	 * @return UserVO
+	 */
+	@RequestMapping(value = "/findPwd.do")
+	@ResponseBody
+	public UserVO findPwd(String user_email) throws Exception{
+		return service.selectUserPwd(user_email);
+	}
 }

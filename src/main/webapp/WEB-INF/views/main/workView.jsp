@@ -6,10 +6,129 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
-<link rel="stylesheet" type="text/css"
-	href="/grouping/resources/stylesheets/work.css">
 </head>
 <script>
+$(function() {
+	$('#Task_Sday, #Task_Dday').datepicker({
+		dateFormat: "yy-mm-dd"
+	});
+
+	$("#insertForm").validate({
+		rules : {
+			work_subject : {
+				required : true,
+				minlength : 1,
+				maxlength : 50
+			},
+			work_content : {
+				required : true,
+				minlength : 1,
+				maxlength : 500
+			},
+			work_user_id: {
+				required : true
+			},
+			work_end_date: { 
+	            dpCompareDate: {after: '#Task_Sday'} 
+	        }
+		},
+		//규칙체크 실패시 출력될 메시지
+		messages : {
+			work_content : {
+				required : "게시글 제목을 필수로 입력하세요",
+				minlength : "최소 1글자 이상 입력하세요",
+				maxlength : "최대 50글자 이하이어야 합니다"
+			},
+			work_content : {
+				required : "게시글 제목을 필수로 입력하세요",
+				minlength : "최소 1글자 이상 입력하세요",
+				maxlength : "최대 500글자 이하이어야 합니다"
+			},
+			work_user_id: {
+				required : "업무 담당자를 선택하세요"
+			},
+			work_end_date: 'Please enter a date after the previous value' 
+	
+		},
+		submitHandler : function(form) {
+			$.ajax({
+				url : "/grouping/work/workRegister.do",
+				data : $('#insertForm').serialize(),
+				dataType : 'json',
+				type : "post",
+				async : false,
+				success : function(jsonData) {
+					$("#addworkmodal").modal('hide');
+					
+				},
+				error : function(jsonData) {
+					alert("실패");
+				}
+			});
+		}
+		
+	});
+	
+	$('#work_start_date, #work_end_date').datepicker({
+		dateFormat: "yy-mm-dd"
+	});
+	$("#update_work_form").validate({
+		rules : {
+			work_subject : {
+				required : true,
+				minlength : 1,
+				maxlength : 50
+			},
+			work_content : {
+				required : true,
+				minlength : 1,
+				maxlength : 500
+			},
+			work_user_id: {
+				required : true
+			},
+			work_end_date: { 
+	            dpCompareDate: {after: '#work_start_date'} 
+	        }
+		},
+		//규칙체크 실패시 출력될 메시지
+		messages : {
+			work_content : {
+				required : "게시글 제목을 필수로 입력하세요",
+				minlength : "최소 1글자 이상 입력하세요",
+				maxlength : "최대 50글자 이하이어야 합니다"
+			},
+			work_content : {
+				required : "게시글 제목을 필수로 입력하세요",
+				minlength : "최소 1글자 이상 입력하세요",
+				maxlength : "최대 500글자 이하이어야 합니다"
+			},
+			work_user_id: {
+				required : "업무 담당자를 선택하세요"
+			},
+			work_end_date: 'Please enter a date after the previous value' 
+	
+		},
+		submitHandler : function(form) {
+			$.ajax({
+				url : "/grouping/work/updateWork.do",
+				data : $('#update_work_form').serialize(),
+				dataType : 'json',
+				type : "post",
+				async : false,
+				success : function(jsonData) {
+					$("#workdetailmodal").modal('hide');
+				},
+				error : function(jsonData) {
+					alert("실패");
+				}
+			});
+		}
+		
+	});
+})
+
+
 	$(function() {
 		var member = "";
 		$.getJSON('/grouping/work/selectMemberList.do',
@@ -127,22 +246,8 @@
 		$("#work_category").val(id);
 		$("#modifylistname").modal('show');
 	}	
-	function addwork(){
-		$.ajax({
-			url : "/grouping/work/workRegister.do",
-			data : $('#insertForm').serialize(),
-			dataType : 'json',
-			type : "post",
-			async : false,
-			success : function(jsonData) {
-				$("#addworkmodal").modal('hide');
-				
-			},
-			error : function(jsonData) {
-				alert("실패");
-			}
-		});
-	}
+	
+	
 	function modifylistname(){
 		$.ajax({
 			url : "/grouping/work/modifyListName.do",
@@ -170,23 +275,7 @@
 			$("#confirmBtn").css("visibility", "visible"); 
 		
 	}
-	function updatework(){
-		
-		$.ajax({
-			url : "/grouping/work/updateWork.do",
-			data : $('#update_work_form').serialize(),
-			dataType : 'json',
-			type : "post",
-			async : false,
-			success : function(jsonData) {
-				$("#workdetailmodal").modal('hide');
-			},
-			error : function(jsonData) {
-				alert("실패");
-			}
-		});
 
-	}
 function deleteWork(){
 		var seq_work_number = $("#add_seq_work_number").val();
 		$.ajax({
@@ -219,10 +308,12 @@ function deleteWork(){
 </script>
 <body>
 	<div id="work_area">
+		<!-- 첫번째 워크 리스트 -->
 		<div class="col-md-2">
 			<div class="panel panel-default panel-table">
 				<div class="panel-heading">
 					${worklistname.first_list_name }
+					<hr>
 					<button id="first_list_name" class="btn btn-sm btn-primary btn-create" onclick="loadAddWork(this.id);">업무
 						추가</button>
 					<button id="first_list_name" class="btn btn-sm btn-primary btn-create" onclick="loadnamemodify(this.id);">리스트
@@ -232,10 +323,12 @@ function deleteWork(){
 
 			</div>
 		</div>
+		<!-- 두번째 워크 리스트 -->
 		<div class="col-md-2">
 			<div class="panel panel-default panel-table">
 				<div class="panel-heading">
 					${worklistname.second_list_name }
+					<hr>
 					<button id="second_list_name" class="btn btn-sm btn-primary btn-create" onclick="loadAddWork(this.id);">업무
 						추가</button>
 					<button id="second_list_name" class="btn btn-sm btn-primary btn-create" onclick="loadnamemodify(this.id);">리스트
@@ -245,10 +338,12 @@ function deleteWork(){
 
 			</div>
 		</div>
+		<!-- 세번째 워크 리스트 -->
 		<div class="col-md-2">
 			<div class="panel panel-default panel-table">
 				<div class="panel-heading">
 					${worklistname.third_list_name }
+					<hr>
 					<button id="third_list_name" class="btn btn-sm btn-primary btn-create" onclick="loadAddWork(this.id);">업무
 						추가</button>
 					<button id="third_list_name" class="btn btn-sm btn-primary btn-create" onclick="loadnamemodify(this.id);">리스트
@@ -258,10 +353,12 @@ function deleteWork(){
 
 			</div>
 		</div>
+		<!-- 네번째 워크 리스트 -->
 		<div class="col-md-2">
 			<div class="panel panel-default panel-table">
 				<div class="panel-heading">
 					${worklistname.fourth_list_name }
+					<hr>
 					<button id="fourth_list_name" class="btn btn-sm btn-primary btn-create" onclick="loadAddWork(this.id);">업무
 						추가</button>
 					<button id="fourth_list_name" class="btn btn-sm btn-primary btn-create" onclick="loadnamemodify(this.id);">리스트
@@ -271,10 +368,12 @@ function deleteWork(){
 
 			</div>
 		</div>
+		<!-- 다섯번째 워크 리스트 -->
 		<div class="col-md-2">
 			<div class="panel panel-default panel-table">
 				<div class="panel-heading">
 					${worklistname.fifth_list_name }
+					<hr>
 					<button id="fifth_list_name" class="btn btn-sm btn-primary btn-create" onclick="loadAddWork(this.id);">업무
 						추가</button>
 					<button id="fifth_list_name" class="btn btn-sm btn-primary btn-create" onclick="loadnamemodify(this.id);">리스트
@@ -284,10 +383,12 @@ function deleteWork(){
 
 			</div>
 		</div>
+		<!-- 여섯번째 워크 리스트 -->
 		<div class="col-md-2">
 			<div class="panel panel-default panel-table">
 				<div class="panel-heading">
 					${worklistname.sixth_list_name }
+					<hr>
 					<button id="sixth_list_name" class="btn btn-sm btn-primary btn-create" onclick="loadAddWork(this.id);">업무
 						추가</button>
 					<button id="sixth_list_name" class="btn btn-sm btn-primary btn-create" onclick="loadnamemodify(this.id);">리스트
@@ -336,24 +437,25 @@ function deleteWork(){
 					</button>
 					<h4 class="modal-title">업무 추가</h4>
 				</div>
+				<form id="insertForm">
 				<div class="modal-body">
-					<form id="insertForm">
+					
 						<div id="memo_form">
 						<input type="hidden" id="add_work_category" name = "work_category">
-							업무주제<input type="text" id="Task_Name" name = "work_subject"> <br> 
-							시작일 <input type="date" id="Task_Sday" name = "work_start_date"> <br> 
-							마감일 <input type="date" id="Task_Dday" name = "work_end_date"> <br> 
+							업무주제<input type="text" id="Task_subject" name = "work_subject" required="required"> <br> 
+							시작일 <input type="text" id="Task_Sday" name = "work_start_date"> <br> 
+							마감일 <input type="text" id="Task_Dday" name = "work_end_date"> <br> 
 							참여자
 							<div id="memberlist">
 							</div>
-							<br> 내용 <input type="text" id="Task_Memo" name = "work_content"> <br>
+							<br> 내용 <input type="text" id="Task_content" name = "work_content" required="required"> <br>
 						</div>
-					</form>
+					
 				</div>
 				<div class="modal-footer">
-					<button type="button" class="btn btn-primary"
-						onclick="addwork();">추가</button>
+					<input type="submit" class="btn btn-primary" />
 				</div>
+				</form>
 			</div>
 			<!-- /.modal-content -->
 		</div>
@@ -374,29 +476,29 @@ function deleteWork(){
 					</button>
 					<h4 class="modal-title">업무 상세</h4>
 				</div>
+				<form id="update_work_form">
 				<div class="modal-body">
-					<form id="update_work_form">
+					
 						<div id="memo_form">
 						<input type="hidden" id="add_seq_work_number" name = "seq_work_number">
 						<input type="hidden" id="add_work_category" name = "work_category">
-							업무주제<input type="text" id="work_subject" name = "work_subject" disabled="disabled"> <br> 
-							시작일 <input type="date" id="work_start_date" name = "work_start_date" disabled="disabled"> <br> 
-							마감일 <input type="date" id="work_end_date" name = "work_end_date" disabled="disabled"> <br> 
+							업무주제<input type="text" id="work_subject" name = "work_subject" disabled="disabled" required="required"> <br> 
+							시작일 <input type="text" id="work_start_date" name = "work_start_date" disabled="disabled" required="required"> <br> 
+							마감일 <input type="text" id="work_end_date" name = "work_end_date" disabled="disabled" required="required"> <br> 
 							참여자
 							<div id="memberlist2">
 							</div>
-							<br> 내용 <input type="text" id="work_content" name = "work_content" disabled="disabled"> <br>
+							<br> 내용 <input type="text" id="work_content" name = "work_content" disabled="disabled" required="required"> <br>
 						</div>
-					</form>
+						
 				</div>
 				<div class="modal-footer">
-				<button type="button" id = "modifyBtn" class="btn btn-primary"
-						onclick="modifywork();">수정</button>
-					<button type="button" id = "confirmBtn" class="btn btn-primary"
-						onclick="updatework();"  style="visibility: hidden">확인</button>
-					<button type="button" class="btn btn-primary"
-						onclick="deleteWork(); ">삭제</button>
+				<input type="submit" id = "confirmBtn" class="btn btn-primary" style="visibility: hidden"/>
+					
+				<button type="button" id = "modifyBtn" class="btn btn-primary" onclick="modifywork();">수정</button>		
+				<button type="button" class="btn btn-primary" onclick="deleteWork(); ">삭제</button>
 				</div>
+				</form>
 			</div>
 			<!-- /.modal-content -->
 		</div>

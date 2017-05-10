@@ -120,11 +120,6 @@ padding-left: 15px;
 .container{
 	width:1600px;
 }
-#innerPage{
-    width : 80%;
-    height : 80%;
-    display : inline-block;
-}
 #insertBtn{
 	float : right;
 }

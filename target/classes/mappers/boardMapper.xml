@@ -3,48 +3,109 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.spring.grouping.board.mapper.BoardMapper">
-	<select id="selectBoardList" parameterType="int" resultType="com.spring.grouping.board.domain.BoardVO">
-		select * 
-		from t_board_info
-		where SEQ_GRP_NUMBER is null
-		ORDER BY SEQ_BOARD_NUMBER DESC		
+	<!-- 게시판 리스트 조회  -->
+	<select id="selectBoardList" parameterType="int" resultType="BoardVO">
+		SELECT 
+			SEQ_BOARD_NUMBER,
+			BOARD_TITLE,
+			BOARD_CONTENT,
+			BOARD_REG_DT,
+			BOARD_REG_USER_ID,
+			BOARD_REG_USER_NAME,
+			SEQ_GRP_NUMBER 
+		FROM 
+			T_BOARD_INFO
+		WHERE 
+			SEQ_GRP_NUMBER IS NULL
+		ORDER BY 
+			SEQ_BOARD_NUMBER DESC		
 	</select>
-<select id="selectGroupBoardList" parameterType="String" resultType="com.spring.grouping.board.domain.BoardVO">
-		select * 
-		from t_board_info
-		where SEQ_GRP_NUMBER = #{seq_grp_number}
-		ORDER BY SEQ_BOARD_NUMBER DESC		
-	</select>
-	<select id="selectBoardListCnt" resultType="int">
-		select count(*) 
-		from t_board_info
-	</select>
-	<select id ="selectBoardDetail" resultType="com.spring.grouping.board.domain.BoardVO">
-	SELECT *
-	from T_BOARD_INFO
-	WHERE SEQ_BOARD_NUMBER = #{seq_board_number}
 	
+	<!-- 그룹 게시판 리스트 조회  -->
+	<select id="selectGroupBoardList" parameterType="String" resultType="BoardVO">
+		SELECT 
+			SEQ_BOARD_NUMBER,
+			BOARD_TITLE,
+			BOARD_CONTENT,
+			BOARD_REG_DT,
+			BOARD_REG_USER_ID,
+			BOARD_REG_USER_NAME,
+			SEQ_GRP_NUMBER  
+		FROM 
+			T_BOARD_INFO
+		WHERE 
+			SEQ_GRP_NUMBER = #{seq_grp_number}
+		ORDER BY 
+			SEQ_BOARD_NUMBER DESC		
 	</select>
+	
+	<!-- 게시판 리스트 조회  카운트-->
+	<select id="selectBoardListCnt" resultType="int">
+		SELECT 
+			COUNT(SEQ_BOARD_NUMBER) 
+		FROM 
+			T_BOARD_INFO
+	</select>
+	
+	<!-- 게시글 상세  -->
+	<select id ="selectBoardDetail" resultType="BoardVO">
+		SELECT
+			SEQ_BOARD_NUMBER,
+			BOARD_TITLE,
+			BOARD_CONTENT,
+			BOARD_REG_DT,
+			BOARD_REG_USER_ID,
+			BOARD_REG_USER_NAME,
+			SEQ_GRP_NUMBER  
+		from 
+			T_BOARD_INFO
+		WHERE 
+			SEQ_BOARD_NUMBER = #{seq_board_number}	
+	</select>
+	
+	<!-- 게시글 생성  -->
 	<insert id="insertBoard" parameterType="hashMap">
-		INSERT INTO T_BOARD_INFO
-		(BOARD_TITLE, BOARD_CONTENT, BOARD_REG_DT, BOARD_REG_USER_ID, BOARD_REG_USER_NAME, BOARD_UDT_DT, BOARD_UDT_USER_ID, SEQ_GRP_NUMBER)
-		VALUES
-		(#{board.board_title}, #{board.board_content}, CURRENT_TIMESTAMP, #{user_id}, #{user_name}, #{board.board_udt_dt}, #{board.board_udt_user_id}, #{seq_grp_number})
+		INSERT INTO 
+			T_BOARD_INFO (
+			BOARD_TITLE, 
+			BOARD_CONTENT, 
+			BOARD_REG_DT, 
+			BOARD_REG_USER_ID, 
+			BOARD_REG_USER_NAME, 
+			BOARD_UDT_DT, 
+			BOARD_UDT_USER_ID, 
+			SEQ_GRP_NUMBER)
+		VALUES (
+			#{board.board_title}, 
+			#{board.board_content}, 
+			CURRENT_TIMESTAMP, 
+			#{user_id}, 
+			#{user_name}, 
+			#{board.board_udt_dt}, 
+			#{board.board_udt_user_id}, 
+			#{seq_grp_number}
+		)
 	</insert>
 	
-	<update id="updateBoard" parameterType="com.spring.grouping.board.domain.BoardVO">
-		UPDATE T_BOARD_INFO 
+	<!-- 게시글 수정  -->
+	<update id="updateBoard" parameterType="BoardVO">
+		UPDATE 
+			T_BOARD_INFO 
 		SET
-		BOARD_TITLE = #{board_title}
-		, BOARD_CONTENT = #{board_content}
-		, BOARD_UDT_DT = CURRENT_TIMESTAMP
-		, BOARD_UDT_USER_ID = #{board_reg_user_id}
+			BOARD_TITLE = #{board_title}
+			, BOARD_CONTENT = #{board_content}
+			, BOARD_UDT_DT = CURRENT_TIMESTAMP
+			, BOARD_UDT_USER_ID = #{board_reg_user_id}
 		WHERE 
-		SEQ_BOARD_NUMBER = #{seq_board_number}
+			SEQ_BOARD_NUMBER = #{seq_board_number}
 	</update>
-	<delete id ="deleteBoard"  parameterType="com.spring.grouping.board.domain.BoardVO">
-	DELETE FROM T_BOARD_INFO
-	WHERE SEQ_BOARD_NUMBER = #{seq_board_number}
+	
+	<!-- 게시글 삭제  -->
+	<delete id ="deleteBoard"  parameterType="BoardVO">
+		DELETE FROM 
+			T_BOARD_INFO
+		WHERE 
+			SEQ_BOARD_NUMBER = #{seq_board_number}
 	</delete>
 	
 </mapper>
