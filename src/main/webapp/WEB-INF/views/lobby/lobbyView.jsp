@@ -13,6 +13,8 @@
 <link rel="stylesheet" type="text/css" href="/grouping/resources/stylesheets/lobby.css">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.16.0/jquery.validate.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.16.0/additional-methods.min.js"></script>
+<script src="<c:url value="/resources/javascripts/jquery.paging.min.js"/>"></script>
+
 </head>
 <script>
 //소켓 변수

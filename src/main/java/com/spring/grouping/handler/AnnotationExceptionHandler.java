@@ -18,7 +18,7 @@ import com.spring.grouping.common.exception.MyTransactionException;
 /*
  * Exception 글로벌 처리
  */
-@ControllerAdvice
+/*@ControllerAdvice*/
 public class AnnotationExceptionHandler {
 	private static final Logger logger = LoggerFactory.getLogger(AnnotationExceptionHandler.class);
 	

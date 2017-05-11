@@ -1,21 +1,22 @@
 package com.spring.grouping.board.domain;
 
-import java.sql.Date;
 
 public class BoardVO {
-
 	int seq_board_number;	
 	int seq_grp_number;
+	int row_num;
+	public int getRow_num() {
+		return row_num;
+	}
+	public void setRow_num(int row_num) {
+		this.row_num = row_num;
+	}
 	public int getSeq_grp_number() {
 		return seq_grp_number;
 	}
-
 	public void setSeq_grp_number(int seq_grp_number) {
 		this.seq_grp_number = seq_grp_number;
 	}
-
-
-
 	String board_title;
 	String board_content;
 	String board_reg_dt;

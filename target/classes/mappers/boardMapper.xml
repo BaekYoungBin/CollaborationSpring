@@ -3,9 +3,10 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.spring.grouping.board.mapper.BoardMapper">
-	<!-- 게시판 리스트 조회  -->
-	<select id="selectBoardList" parameterType="int" resultType="BoardVO">
-		SELECT 
+	<!-- 자유 게시판 리스트 조회  -->
+	<select id="selectFreeBoardList" parameterType="hashMap" resultType="BoardVO">
+		
+		SELECT @rownum :=@rownum+1 AS ROW_NUM,
 			SEQ_BOARD_NUMBER,
 			BOARD_TITLE,
 			BOARD_CONTENT,
@@ -14,39 +15,51 @@
 			BOARD_REG_USER_NAME,
 			SEQ_GRP_NUMBER 
 		FROM 
-			T_BOARD_INFO
+			T_BOARD_INFO, (SELECT @ROWNUM :=0) TMP
 		WHERE 
 			SEQ_GRP_NUMBER IS NULL
 		ORDER BY 
-			SEQ_BOARD_NUMBER DESC		
+			SEQ_BOARD_NUMBER DESC
+		LIMIT #{pageNum}, 10;
+					
 	</select>
-	
 	<!-- 그룹 게시판 리스트 조회  -->
-	<select id="selectGroupBoardList" parameterType="String" resultType="BoardVO">
-		SELECT 
+	<select id="selectGroupBoardList" parameterType="hashMap" resultType="BoardVO">
+		SELECT @rownum :=@rownum+1 AS ROW_NUM,
 			SEQ_BOARD_NUMBER,
 			BOARD_TITLE,
 			BOARD_CONTENT,
 			BOARD_REG_DT,
 			BOARD_REG_USER_ID,
 			BOARD_REG_USER_NAME,
-			SEQ_GRP_NUMBER  
+			SEQ_GRP_NUMBER 
 		FROM 
-			T_BOARD_INFO
+			T_BOARD_INFO, (SELECT @ROWNUM :=0) TMP
 		WHERE 
 			SEQ_GRP_NUMBER = #{seq_grp_number}
 		ORDER BY 
-			SEQ_BOARD_NUMBER DESC		
+			SEQ_BOARD_NUMBER DESC
+		LIMIT #{pageNum}, 10;					
 	</select>
 	
-	<!-- 게시판 리스트 조회  카운트-->
-	<select id="selectBoardListCnt" resultType="int">
+	<!-- 자유게시판 리스트 조회  카운트-->
+	<select id="selectFreeBoardListCnt" resultType="int">
 		SELECT 
 			COUNT(SEQ_BOARD_NUMBER) 
 		FROM 
 			T_BOARD_INFO
+		WHERE
+			SEQ_GRP_NUMBER IS NULL
 	</select>
-	
+	<!-- 그룹게시판 리스트 조회  카운트-->
+	<select id="selectGroupBoardListCnt" parameterType ="String" resultType="int">
+		SELECT 
+			COUNT(SEQ_BOARD_NUMBER) 
+		FROM 
+			T_BOARD_INFO
+		WHERE
+			SEQ_GRP_NUMBER = #{seq_grp_number}
+	</select>
 	<!-- 게시글 상세  -->
 	<select id ="selectBoardDetail" resultType="BoardVO">
 		SELECT

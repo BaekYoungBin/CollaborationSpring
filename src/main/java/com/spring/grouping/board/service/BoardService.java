@@ -19,14 +19,7 @@ public class BoardService {
 	@Autowired
 	private BoardMapper boardMapper;
 		
-	/**
-	 * 전체게시판 리스트 조회
-	 * @return List<BoardVO>
-	 */
-	public List<BoardVO> selectFreeBoardList(){
-		return boardMapper.selectBoardList();
-	};
-	
+
 	/**
 	 * 게시판 상세 조회
 	 * @return BoardVO
@@ -65,11 +58,26 @@ public class BoardService {
 	}
 	
 	/**
-	 * 그룹 게시판 리스트 조회
+	 * 게시판 리스트 조회
 	 * @return
 	 */
-	public List<BoardVO> selectGroupBoardList(String seq_grp_number) {
+	public List<BoardVO> selectGroupBoardList(Map<String, Object> map) {
 		// TODO Auto-generated method stub
-		return boardMapper.selectGroupBoardList(seq_grp_number);
+		return boardMapper.selectGroupBoardList(map);
+	}
+	public List<BoardVO> selectFreeBoardList(Map<String, Object> map) {
+		// TODO Auto-generated method stub
+		return boardMapper.selectFreeBoardList(map);
+	}
+	public int selectGroupBoardListCnt(String seq_grp_number) {
+		// TODO Auto-generated method stub
+
+		System.out.println("서비스 seq_grp_number "+seq_grp_number);
+		return boardMapper.selectGroupBoardListCnt(seq_grp_number);
+	}
+
+	public int selectFreeBoardListCnt() {
+		// TODO Auto-generated method stub
+		return boardMapper.selectFreeBoardListCnt();
 	}
 }

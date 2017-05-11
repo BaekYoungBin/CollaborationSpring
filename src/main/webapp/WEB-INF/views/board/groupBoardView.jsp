@@ -7,41 +7,59 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Insert title here</title>
+<title>그룹게시판</title>
 </head>
 <script>
+
 /*
 	게시판 화면 페이지 로드
 	html 랜더링 후 데이터 ajax로 받아와서 html변경
 	Ajax 방식
 	success : 데이터 가공 후 datasection에 게시글 목록 표출
 */
+
+var total ;
+var list ;
 $(function() {
-	var list = new Array();
-	$.ajax({
-		url : "/grouping/board/boardViewAjax.do",
-		dataType : 'json',
-		type : "post",
-		async : false,
-		success : function(jsonData) {
-			var dataform = JSON.stringify(jsonData.boardList);
-			var temp = JSON.parse(dataform);
-			var text;			
-			$.each(temp, function(key, value) {
-				text += "<tr>";
-				text += "<td>" + value.seq_board_number + "</td>";
-				text += "<td><a href='javascript:loadBoardDetail("+ value.seq_board_number + ");'>"
-						+ value.board_title + "</a></td>";
-				text += "<td>" + value.board_content + "</td>";
-				text += "<td>" + value.board_reg_user_name + "</td>";
-				text += "</tr>";
-			});
-			$("#datasection").html(text);
-		},
-		error : function(jsonData) {
-			alert("실패");
-		}
+	list= new Array();
+	total= "<c:out value="${boardTotalListCnt}"/>";
+	total = total/10 + 1;
+	//페이징 프레임워크, totalPages : 페이지 출력 숫자, visiblePages : 한화면에 최대로 보여주는 페이지 숫자
+	$('#pagination-demo').twbsPagination({
+		  totalPages: total,
+		  visiblePages: 10,
+		  onPageClick: function (event, page) {
+			  $.ajax({
+					url : "/grouping/board/boardViewAjax.do",
+					data: {
+						"pageNum" : page
+						},
+					dataType : 'json',
+					type : "post",
+					async : false,
+					success : function(jsonData) {
+
+						var dataform = JSON.stringify(jsonData.boardList);
+						var temp = JSON.parse(dataform);
+						var text;			
+						$.each(temp, function(key, value) {
+							text += "<tr>";
+							text += "<td>" + value.row_num + "</td>";
+							text += "<td><a href='javascript:loadBoardDetail("+ value.seq_board_number + ");'>"
+									+ value.board_title + "</a></td>";
+							text += "<td>" + value.board_content + "</td>";
+							text += "<td>" + value.board_reg_user_name + "</td>";
+							text += "</tr>";
+						});
+						$("#data-Section").html(text);
+					},
+					error : function(jsonData) {
+						alert("실패");
+					}		  
+				});
+		  }
 	});
+	
 });
 </script>
 	<body>	
@@ -70,10 +88,13 @@ $(function() {
                             </tr>         
                         </thead>
                         <!-- 게시글 목록 표출 부분 -->
-                        <tbody id = "datasection">                       
+                        <tbody id = "data-Section">                       
                         </tbody>
                     </table>
-                </div>              
+                </div>
+             <div id = "page-selection"class="panel-footer">
+				 <ul id="pagination-demo" class="pagination-sm"></ul>
+			</div>              
             </div>
         </div>
     </body>

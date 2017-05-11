@@ -22,25 +22,23 @@ public class BoardController {
 	BoardService service;
 
 	/**
-	 * 게시판 리스트 조회
-	 * seq_grp_number가 null이면 전체 게시판, null이 아니면 해당 그룹 게시판 조회
+	 * 게시판 리스트 카운트 조회
+	 * seq_grp_number가 null이면 전체 게시판, null이 아니면 해당 그룹 게시판 카운트 조회
 	 * @return ModelAndView
 	 */
 	@RequestMapping(value = "/boardView.do")
-	public ModelAndView boardView(HttpSession session) throws Exception{
+	public ModelAndView boardView(HttpSession session) throws Exception{	
 		ModelAndView mv = new ModelAndView();
-		List<BoardVO> boardList;
-		if (session.getAttribute("seq_grp_number") == null) {
-			boardList = service.selectFreeBoardList();
+		String seq_grp_number = (String)session.getAttribute("seq_grp_number");		
+		System.out.println("그룹넘버 : "+ seq_grp_number);
+		if(seq_grp_number == null){
+			mv.addObject("boardTotalListCnt", service.selectFreeBoardListCnt());
 			mv.setViewName("/board/freeBoardView");
-		} else {
-			boardList = service.selectGroupBoardList((String) session.getAttribute("seq_grp_number"));
+		}
+		else{
+			mv.addObject("boardTotalListCnt", service.selectGroupBoardListCnt(seq_grp_number));
 			mv.setViewName("/board/groupBoardView");
 		}
-		if (boardList.size() == 0) {
-			mv.addObject("boardList", null);
-		}
-		mv.addObject("boardList", boardList);
 		return mv;
 	}
 
@@ -51,15 +49,18 @@ public class BoardController {
 	 */
 	@RequestMapping(value = "/boardViewAjax.do")
 	@ResponseBody
-	public Map<String, Object> selectBoardList(HttpSession session) throws Exception{
-		List<BoardVO> boardList;
-		if ((String) session.getAttribute("seq_grp_number") != null) {
-			boardList = service.selectGroupBoardList((String) session.getAttribute("seq_grp_number"));
-		} else {
-			boardList = service.selectFreeBoardList();
+	public Map<String, Object> selectBoardList(HttpSession session, String pageNum) throws Exception{
+		Map <String, Object> map = new HashMap<String, Object>();
+		System.out.println("page number : "+pageNum);		
+		String seq_grp_number = (String) session.getAttribute("seq_grp_number");
+		map.put("seq_grp_number", seq_grp_number);
+		
+		map.put("pageNum", (Integer.parseInt(pageNum)-1)*10);	
+		if(seq_grp_number == null){
+			map.put("boardList", service.selectFreeBoardList(map));
 		}
-		Map<String, Object> map = new HashMap<String, Object>();
-		map.put("boardList", boardList);
+		else
+			map.put("boardList", service.selectGroupBoardList(map));
 		if (map.size() == 0)
 			map.put("boardList", null);
 		return map;
