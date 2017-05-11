@@ -12,7 +12,7 @@
 <script>
 /*
 	비밀번호 찾기 함수
-	유저 이메일을 입력하면 DB에서 비밀번호를 리턴해줍니다. 보안처리 미흡
+	유저 이메일을 입력하면 DB에서 비밀번호를 리턴해줍니다. 보안처리 미흡!
 	Ajax
 	data : user_email -> String으로 전송 후 DB에서 password 리턴
 	success : 모달창 출력 후 비밀번호 표출
@@ -27,7 +27,7 @@ function passwordFind() {
 		type : "post",
 		async : false,
 		success : function(jsonData) {
-			var text = jsonData.user_id +"님의 password는 " + jsonData.user_pwd+"입니다.";
+			var text = "당신의 password는 " + jsonData.user_pwd+"입니다.";
 			$("#passwordIn").html(text);
 			$("#passwordShow").modal('show');
 		},

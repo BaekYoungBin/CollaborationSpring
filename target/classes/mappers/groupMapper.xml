@@ -28,11 +28,11 @@
 		values (
 			#{grp_title},
 			#{grp_content},
-			CURRENT_STAMP,
+			CURRENT_TIMESTAMP,
 			#{grp_reg_user_id},
-			CURRENT_STAMP,
-			#{grp_udt_user_id},
-			#{grp_leader_id}
+			CURRENT_TIMESTAMP,
+			#{grp_reg_user_id},
+			#{grp_reg_user_id}
 		)	
 	</insert>
 

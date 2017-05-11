@@ -51,7 +51,7 @@
 			T_WORK_LIST_NAME (
 			SEQ_GRP_NUMBER,
 			REG_DT,
-			REG_USER_UD,
+			REG_USER_ID,
 			UDT_DT,
 			UDT_USER_ID
 		)
@@ -60,7 +60,7 @@
 			CURRENT_TIMESTAMP,
 			#{grp_reg_user_id},
 			CURRENT_TIMESTAMP,
-			#{grp_reg_user_id},
+			#{grp_reg_user_id}
 		)
 	</insert>
 	<!-- 업무 리스트 네임 선택 -->

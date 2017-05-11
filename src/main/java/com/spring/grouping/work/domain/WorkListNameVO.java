@@ -9,6 +9,34 @@ public class WorkListNameVO {
 	String fourth_list_name;
 	String fifth_list_name;
 	String sixth_list_name;
+	String reg_dt;
+	String reg_user_id;
+	String udt_dt;
+	String udt_user_id;
+	public String getReg_dt() {
+		return reg_dt;
+	}
+	public void setReg_dt(String reg_dt) {
+		this.reg_dt = reg_dt;
+	}
+	public String getReg_user_id() {
+		return reg_user_id;
+	}
+	public void setReg_user_id(String reg_user_id) {
+		this.reg_user_id = reg_user_id;
+	}
+	public String getUdt_dt() {
+		return udt_dt;
+	}
+	public void setUdt_dt(String udt_dt) {
+		this.udt_dt = udt_dt;
+	}
+	public String getUdt_user_id() {
+		return udt_user_id;
+	}
+	public void setUdt_user_id(String udt_user_id) {
+		this.udt_user_id = udt_user_id;
+	}
 	public int getSEQ_WORK_NUMBER() {
 		return SEQ_WORK_NUMBER;
 	}
