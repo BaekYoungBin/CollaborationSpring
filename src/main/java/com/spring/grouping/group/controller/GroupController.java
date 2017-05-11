@@ -145,5 +145,16 @@ public class GroupController {
 		List<UserVO> userlist = GroupChatHandler.getCurrentUser((String) session.getAttribute("seq_grp_number"));
 		return userlist;
 	}
+	
+	/**
+	 * 그룹 멤버 리스트 Ajax
+	 */
+	@RequestMapping(value = "/allUser.do")
+	@ResponseBody
+	public List<UserVO> allUser(HttpSession session) throws Exception{
+		List<UserVO> userlist = service.getAllUser((String) session.getAttribute("seq_grp_number"));
+		return userlist;
+	}
+
 
 }

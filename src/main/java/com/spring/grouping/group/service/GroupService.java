@@ -14,6 +14,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.spring.grouping.common.exception.MyTransactionException;
 import com.spring.grouping.group.domain.GroupVO;
 import com.spring.grouping.group.mapper.GroupMapper;
+import com.spring.grouping.mypage.domain.UserVO;
 import com.spring.grouping.work.mapper.WorkMapper;
 
 @Transactional
@@ -151,6 +152,11 @@ public class GroupService {
 	public int updateGroupUseHist(Map<String, Object> map) {
 		// TODO Auto-generated method stub
 		return groupMapper.updateGroupUseHist(map);
+	}
+
+	public List<UserVO> getAllUser(String seq_grp_number) {
+		// TODO Auto-generated method stub
+		return groupMapper.selectMemberList(seq_grp_number);
 	}
 
 }

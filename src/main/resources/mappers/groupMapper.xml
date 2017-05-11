@@ -206,4 +206,7 @@
 		WHERE 
 			UIG.SEQ_GRP_NUMBER = #{seq_grp_number}
 	</select>
+	
+	
+	
 </mapper>

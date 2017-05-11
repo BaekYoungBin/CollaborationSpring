@@ -137,7 +137,30 @@
 			}
 		});
 	}
-	
+	function showAllUser() {
+		$.ajax({
+			url : "/grouping/group/allUser.do",
+			dataType : 'json',
+			type : "post",
+			async : false,
+			success : function(jsonData) {
+				var dataform = JSON.stringify(jsonData);
+				var temp = JSON.parse(dataform);
+				var text = null;
+				$.each(temp, function(key, value) {
+					text += "<tr>";
+					text += "<td>" + value.user_id + "</td>";
+					text += "<td>" + value.user_name + "</td>";
+					text += "</tr>";
+				});
+				$("#all_user_list").html(text);
+				$("#allUserModal").modal('show');
+			},
+			error : function(jsonData) {
+				alert("실패");
+			}
+		});
+	}
 	//서브페이지 로드 함수
 	function loadWork() {
 		$("#subPage").load("/grouping/work/workView.do");
@@ -179,6 +202,7 @@
 		$("#invite_user").modal('show');
 
 	}
+
 </script>
 <body>
 	<!-- 그룹 타이틀 영역 -->
@@ -199,6 +223,8 @@
 			<ul class="nav navbar-nav navbar-right">
 				<li><a href="../lobby/lobbyView.do"><span
 						class="glyphicon glyphicon-globe"></span> 그룹 로비로 가기</a></li>
+				<li><a href="#" onclick="showAllUser();"><span
+						class="glyphicon glyphicon-user"></span> 회원 리스트조회</a></li>		
 				<li><a href="#" onclick="loadInviteUserModal();"><span
 						class="glyphicon glyphicon-plus-sign"></span> 회원 초대</a></li>
 				<li><a href="../login/loginView.do" id="signout"><span
@@ -273,6 +299,34 @@
 							</tr>
 						</thead>
 						<tbody id="access_user_list">
+						</tbody>
+					</table>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-primary" data-dismiss="modal">확인</button>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- 그룹속한 유저 확인 모달 -->
+	<div class="modal fade" id="allUserModal">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+					<h4 class="modal-title">그룹 멤버</h4>
+				</div>
+				<div class="modal-body">
+					<table class="table table-hover">
+						<thead>
+							<tr>
+								<th>사용자 id</th>
+								<th>이름</th>
+							</tr>
+						</thead>
+						<tbody id="all_user_list">
 						</tbody>
 					</table>
 				</div>
