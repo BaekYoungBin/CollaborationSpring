@@ -13,31 +13,22 @@
 </head>
 <script>
 	var events_array = new Array();
-
 	$(function() {
 		var member = "";
-		$
-				.getJSON(
-						'/grouping/work/selectMemberList.do',
-						function(jsonData) {
-							var dataform = JSON.stringify(jsonData);
-							var temp = JSON.parse(dataform);
-							$
-									.each(
-											temp,
-											function(key, value) {
-												member += "<input type='radio' id = '"+value.user_id+"' name='work_user_id' value='" + value.user_id + "'>"
-														+ value.user_name;
-
-												$("#memberlist2").html(member);
-											});
-						});
-
+		$.getJSON('/grouping/work/selectMemberList.do',			
+				function(jsonData) {
+					var dataform = JSON.stringify(jsonData);
+					var temp = JSON.parse(dataform);
+					$.each(temp,function(key, value) {						
+						member += "<input type='radio' id = '"+value.user_id+"' name='work_user_id' value='" + value.user_id + "'>"+ value.user_name;
+						$("#memberlist2").html(member);
+					});
+				});
+		
 		$.getJSON('/grouping/work/selectWorkList.do', function(data) {
 			var dataform = JSON.stringify(data);
 			var list = JSON.parse(dataform);
 			$.each(list, function(key, value) {
-
 				events_array.push({
 					'id' : value.seq_work_number,
 					'title' : value.work_subject,
@@ -45,7 +36,6 @@
 					'start' : value.work_start_date,
 					'end' : value.work_end_date
 				})
-
 			});
 			$('#calendar').fullCalendar({
 				selectable : true,
@@ -57,11 +47,8 @@
 				eventClick : function(calEvent, jsEvent, view) {
 					loadDetailWork(calEvent.id);
 				}
-
 			});
-
 		});
-
 	});
 	function loadDetailWork(seq_work_number) {
 		$.ajax({

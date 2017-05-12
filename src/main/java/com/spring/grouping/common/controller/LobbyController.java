@@ -1,12 +1,11 @@
 package com.spring.grouping.common.controller;
 import javax.servlet.http.HttpSession;
-
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 /**
- * 로비 컨트롤러 : 로비화면, 채팅
+ * 로비 컨트롤러 : 로비화면
  */
 @Controller
 @RequestMapping(value = "/lobby")

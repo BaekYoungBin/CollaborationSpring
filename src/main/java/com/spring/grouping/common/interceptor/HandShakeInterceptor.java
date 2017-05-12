@@ -18,7 +18,7 @@ public class HandShakeInterceptor extends HttpSessionHandshakeInterceptor{
 	 * 소켓 연결 되기 전 요청 처리, 소켓이 연결 될 때마다 user_id, user_name, seq_grp_number를 웹소켓 세션의 attributes에 넣어준다.
 	 * (non-Javadoc)
 	 * @see org.springframework.web.socket.server.support.HttpSessionHandshakeInterceptor#beforeHandshake(org.springframework.http.server.ServerHttpRequest, org.springframework.http.server.ServerHttpResponse, org.springframework.web.socket.WebSocketHandler, java.util.Map)
-	 */
+	 */ 
 	@Override
     public boolean beforeHandshake(ServerHttpRequest request,ServerHttpResponse response, WebSocketHandler wsHandler,
         Map<String, Object> attributes) throws Exception {    		

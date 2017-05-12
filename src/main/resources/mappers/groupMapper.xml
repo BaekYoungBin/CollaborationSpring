@@ -180,7 +180,7 @@
 		DELETE FROM 
 			T_USER_IN_GROUP
 		WHERE
-			SEQ_GRP_NUMBER = #{seq_grp_number} AND GRP_REG_USER_ID = #{user_id}
+			SEQ_GRP_NUMBER = #{seq_grp_number} AND USER_ID = #{user_id}
 	</delete>
 	
 	<!-- 최근 그룹 사용한 날짜 업데이트 -->

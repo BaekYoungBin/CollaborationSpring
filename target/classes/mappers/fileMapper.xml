@@ -30,7 +30,7 @@
 		)	
 	</insert>
 	
-	<!-- 파일 게시글 조회 -->
+	<!-- 파일 게시글 정보 조회 -->
 	<select id = "selectFileInfo" parameterType="String" resultType = "FileVO">
 		SELECT 
 			SEQ_FILE_NUMBER,

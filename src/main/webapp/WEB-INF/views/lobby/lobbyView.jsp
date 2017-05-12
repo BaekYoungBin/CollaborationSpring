@@ -30,8 +30,7 @@ $(function() {
 	//접속 이벤트 발생 시 메시지 전송
 	sock.onopen = function() {
 		sock.send("<c:out value="${user_name}"/>님이 접속하셨습니다.");
-	}
-	
+	}	
 	//메시지 수신 이벤트 발생 시 리스트 태그처리 후 chatarea에 append
 	sock.onmessage = function(event) {
 		var user_id = "<c:out value="${user_id}"/>";
@@ -43,13 +42,11 @@ $(function() {
 			$("#chatarea").append("<li style='text-align: right'>" + msg.message+ "</li>");
 		}
 		$("#chatpanel").scrollTop($('#chatarea').height());	
-	}
-	
+	}	
 	//접속 종료 이벤트 발생 시 메시지 전송
 	sock.onclose = function() {
 		sock.send("<c:out value="${user_name}"/>님이 로그아웃하셨습니다.");
-	}
-	
+	}	
 	//메시지 전송 버튼 클릭 했을 시 소켓 메시지전송
 	$("#btn-chat").click(function() {
 		if ($("#btn-input").val() != "") {
@@ -127,7 +124,7 @@ function loadModifyUser() {
 	<div id="subPage"></div>
 	
 	<!-- 채팅 패널 -->
-	<div class="panel-primary">
+	<div id="chat" class="panel-primary">
 		<div class="panel-heading">
 			<span class="glyphicon glyphicon-comment"></span> 공개채팅방
 		</div>

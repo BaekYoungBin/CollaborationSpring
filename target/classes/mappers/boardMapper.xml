@@ -4,8 +4,7 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.spring.grouping.board.mapper.BoardMapper">
 	<!-- 자유 게시판 리스트 조회  -->
-	<select id="selectFreeBoardList" parameterType="hashMap" resultType="BoardVO">
-		
+	<select id="selectFreeBoardList" parameterType="hashMap" resultType="BoardVO">	
 		SELECT @rownum :=@rownum+1 AS ROW_NUM,
 			SEQ_BOARD_NUMBER,
 			BOARD_TITLE,
@@ -20,8 +19,7 @@
 			SEQ_GRP_NUMBER IS NULL
 		ORDER BY 
 			SEQ_BOARD_NUMBER DESC
-		LIMIT #{pageNum}, 10;
-					
+		LIMIT #{pageNum}, 10;				
 	</select>
 	<!-- 그룹 게시판 리스트 조회  -->
 	<select id="selectGroupBoardList" parameterType="hashMap" resultType="BoardVO">

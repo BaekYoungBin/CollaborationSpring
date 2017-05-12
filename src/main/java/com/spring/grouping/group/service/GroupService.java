@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.transaction.interceptor.TransactionAspectSupport;
 
 import com.spring.grouping.common.exception.MyTransactionException;
 import com.spring.grouping.group.domain.GroupVO;
@@ -21,6 +22,7 @@ import com.spring.grouping.work.mapper.WorkMapper;
 @Service
 public class GroupService {
 	private static final Exception Exception = null;
+	
 	@Autowired
 	private GroupMapper groupMapper;
 	@Autowired
@@ -78,17 +80,29 @@ public class GroupService {
 	 * @throws MyTransactionException 
 	 */
 	@Transactional(propagation = Propagation.REQUIRED)
-	public int updateFavoriteGroupList(String seq_grp_number, HttpSession session) throws MyTransactionException {
+	public int updateFavoriteGroupList(String seq_grp_number, HttpSession session)  {
+			
+		try{
 			Map<String, Object> map = new HashMap<>();
 			map.put("seq_grp_number", seq_grp_number);
 			map.put("user_id", (String) session.getAttribute("user_id"));
-
 			groupMapper.updateFavoriteGroupList(map);
 			if (groupMapper.selectFavoriteGroupListCnt(map) > 5) {
-				throw new MyTransactionException("즐겨찾기 5개 이상 생성 예외", 412);
+				throw Exception;
+
 			}
 			else
 				return 1;
+		}
+		catch (Exception e){
+			e.printStackTrace();
+			TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
+			return 0;
+		}
+		
+		
+
+			
 
 
 	}

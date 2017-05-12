@@ -16,12 +16,10 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 public class ChatHandler extends TextWebSocketHandler {
 	private static final Logger logger = LoggerFactory.getLogger(ChatHandler.class);
-	
 	/**
 	 *WebSocketSession 접속한 사용자 리스트
 	 */
 	private List<WebSocketSession> connectedUsers;
-
 	/**
 	 * 채팅 핸들러 생성자
 	 *	접속유저 리스트에 웹소켓 리스트 초기화
@@ -29,7 +27,6 @@ public class ChatHandler extends TextWebSocketHandler {
 	public ChatHandler() {
 		connectedUsers = new ArrayList<WebSocketSession>();
 	}
-
 	/**
 	 * 소켓 접속 설정
 	 * 접속한 사용자 WebSocketSession을 connectedUser(접속유저세션리스트)에 세션 추가
@@ -43,7 +40,6 @@ public class ChatHandler extends TextWebSocketHandler {
 		connectedUsers.add(session);
 
 	}
-
 	/**
 	 * 소켓 메시지 이벤트 왔을 시 처리 
 	 * @param WebSocketSession 메시지를 보낸 클라이언트 

@@ -79,7 +79,7 @@ public class GroupController {
 	 */
 	@RequestMapping(value = "/updateFavoriteGroupListAjax.do")
 	@ResponseBody
-	public int updateFavoriteGroupList(String seq_grp_number, HttpSession session) throws MyTransactionException {
+	public int updateFavoriteGroupList(String seq_grp_number, HttpSession session) {
 		return service.updateFavoriteGroupList(seq_grp_number, session);
 	}
 

@@ -308,6 +308,7 @@
 			</div>
 		</div>
 	</div>
+	
 	<!-- 그룹속한 유저 확인 모달 -->
 	<div class="modal fade" id="allUserModal">
 		<div class="modal-dialog">

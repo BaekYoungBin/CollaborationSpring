@@ -399,6 +399,7 @@ function deleteWork(){
 		</div>
 	</div>
 
+	<!-- 리스트 이름 변경 모달 -->
 	<div class="modal fade" id="modifylistname">
 		<div class="modal-dialog">
 			<div class="modal-content">
@@ -463,10 +464,8 @@ function deleteWork(){
 	</div>
 	<!-- /.modal -->
 
-
-
-<!-- 업무 상세리스트 출력모달 -->
-<div class="modal fade" id="workdetailmodal">
+	<!-- 업무 상세리스트 출력모달 -->
+	<div class="modal fade" id="workdetailmodal">
 		<div class="modal-dialog">
 			<div class="modal-content">
 				<div class="modal-header">
@@ -504,7 +503,7 @@ function deleteWork(){
 		</div>
 		<!-- /.modal-dialog -->
 	</div>
-	<!-- /.modal -->
+
 
 </body>
 </html>

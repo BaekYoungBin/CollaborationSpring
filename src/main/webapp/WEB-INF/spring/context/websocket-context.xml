@@ -8,20 +8,20 @@
 <!-- 전체 채팅방 핸들러 -->
 <bean id = "chatHandler" class="com.spring.grouping.handler.ChatHandler"/>
 <websocket:handlers>
-	<websocket:mapping handler="chatHandler" path="/chat-ws"/>
-  <websocket:handshake-interceptors>
-        <bean class="org.springframework.web.socket.server.support.HttpSessionHandshakeInterceptor"/>
-    </websocket:handshake-interceptors>
+	<websocket:mapping handler="chatHandler" path="/chat-ws" />
+	<websocket:handshake-interceptors>
+		<bean class="org.springframework.web.socket.server.support.HttpSessionHandshakeInterceptor" />
+	</websocket:handshake-interceptors>
 	<websocket:sockjs />
 </websocket:handlers>
 
 <!-- 그룹 채팅방 핸들러 -->
 <bean id = "groupChatHandler" class="com.spring.grouping.handler.GroupChatHandler"/>
 <websocket:handlers>
-	<websocket:mapping handler="groupChatHandler" path="/group-chat-ws"/>
-  <websocket:handshake-interceptors>
-        <bean class="org.springframework.web.socket.server.support.HttpSessionHandshakeInterceptor"/>
-    </websocket:handshake-interceptors>
+	<websocket:mapping handler="groupChatHandler" path="/group-chat-ws" />
+	<websocket:handshake-interceptors>
+		<bean class="org.springframework.web.socket.server.support.HttpSessionHandshakeInterceptor" />
+	</websocket:handshake-interceptors>
 	<websocket:sockjs />
 </websocket:handlers>
 </beans>

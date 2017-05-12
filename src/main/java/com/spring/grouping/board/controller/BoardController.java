@@ -51,10 +51,8 @@ public class BoardController {
 	@ResponseBody
 	public Map<String, Object> selectBoardList(HttpSession session, String pageNum) throws Exception{
 		Map <String, Object> map = new HashMap<String, Object>();
-		System.out.println("page number : "+pageNum);		
 		String seq_grp_number = (String) session.getAttribute("seq_grp_number");
-		map.put("seq_grp_number", seq_grp_number);
-		
+		map.put("seq_grp_number", seq_grp_number);	
 		map.put("pageNum", (Integer.parseInt(pageNum)-1)*10);	
 		if(seq_grp_number == null){
 			map.put("boardList", service.selectFreeBoardList(map));

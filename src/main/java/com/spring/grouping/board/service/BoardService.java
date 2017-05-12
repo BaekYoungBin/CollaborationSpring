@@ -71,7 +71,6 @@ public class BoardService {
 	}
 	public int selectGroupBoardListCnt(String seq_grp_number) {
 		// TODO Auto-generated method stub
-
 		System.out.println("서비스 seq_grp_number "+seq_grp_number);
 		return boardMapper.selectGroupBoardListCnt(seq_grp_number);
 	}

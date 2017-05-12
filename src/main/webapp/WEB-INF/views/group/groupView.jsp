@@ -99,6 +99,7 @@ $("form").validate({
 <body>
 	<div id="main" class="col-md-10 col-md-offset-1">
 		<div class="panel panel-default panel-table">
+			<!-- 패널 상단부분 : 그룹 생성, 그룹 더보기 버튼이 위치 -->
 			<div class="panel-heading">
 				<div class="row">
 					<div class="col col-xs-6">
@@ -172,7 +173,7 @@ $("form").validate({
 				</div>
 			</div>
 			
-			<!-- 유저들의 그룹이 나타나는 화면 -->
+			<!-- 그룹 출력 화면 : 최근사용한그룹, 즐겨찾기한그룹 출력  -->
 			<div class="panel-body">
 				<div id="newestProject">
 					<span class="list_subject">최근 사용한 그룹</span>
