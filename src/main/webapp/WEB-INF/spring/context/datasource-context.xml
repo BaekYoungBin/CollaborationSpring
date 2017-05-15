@@ -12,7 +12,7 @@
 	<!-- mysql 접근객체를 가져오는 부분 -->
 	<bean name="MySQLdataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
 		<property name="driverClassName" value="com.mysql.jdbc.Driver" />
-		<property name="url" value="jdbc:mysql://112.172.131.124:3306/grouping" />
+		<property name="url" value="jdbc:mysql://localhost:3306/grouping" />
 		<property name="username" value="root" />
 		<property name="password" value="hrhr" />
 	</bean>

@@ -13,8 +13,6 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
-import com.spring.grouping.common.exception.MyTransactionException;
-
 /*
  * Exception 글로벌 처리
  */
@@ -39,12 +37,7 @@ public class AnnotationExceptionHandler {
     public void handleDBException() {
     	logger.error("database Exception");
     }
-    
-    @ExceptionHandler({MyTransactionException.class}) 
-    public void handleMyTransactionException(HttpServletRequest request, MyTransactionException e) {
-    	logger.error("error message :"+e.getMessage()+ "error code : "+e.getErrCode()+"Request url: "+request.getRequestURL());
-    }
-   
+
     @ExceptionHandler({IOException.class}) 
     public void handleMIOException(HttpServletRequest request, Exception e) {
     	logger.error("error message :"+e.getMessage()+ "error code : "+e.getMessage()+"Request url: "+request.getRequestURL());

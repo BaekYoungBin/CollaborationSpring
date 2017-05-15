@@ -156,7 +156,14 @@
 		WHERE 
 			SEQ_GRP_NUMBER = #{seq_grp_number} AND USER_ID = #{user_id}
 	</update>
-	
+	<select id="selectGroupFavoriteYN" parameterType="hashMap" resultType="String">
+		SELECT
+			GRP_FAVORITE_YN
+		FROM
+			T_USER_IN_GROUP
+		WHERE
+			SEQ_GRP_NUMBER = #{seq_grp_number} AND USER_ID = #{user_id}
+	</select> 
 	<!-- 최근 사용한 그룹 설정 업데이트 -->
 	<update id="updateNewestGroupList" parameterType="hashMap">
 		UPDATE 

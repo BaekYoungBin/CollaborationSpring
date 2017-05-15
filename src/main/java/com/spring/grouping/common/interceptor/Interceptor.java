@@ -21,7 +21,7 @@ public class Interceptor extends HandlerInterceptorAdapter {
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws IOException{
             //Auth이라는 세션key를 가진 정보가 널일경우 로그인페이지로 이동
             if(request.getSession().getAttribute("Auth") != Constants.LOGIN_TRUE ){
-                    response.sendRedirect("/login/loginView.do");
+                    response.sendRedirect("../login/loginView.do");
                    return false;
             }        
         //Auth 세션key 존재시 main 페이지 이동

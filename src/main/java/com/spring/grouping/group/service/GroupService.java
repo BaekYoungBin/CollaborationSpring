@@ -8,21 +8,17 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Propagation;
-import org.springframework.transaction.annotation.Transactional;
-import org.springframework.transaction.interceptor.TransactionAspectSupport;
 
-import com.spring.grouping.common.exception.MyTransactionException;
 import com.spring.grouping.group.domain.GroupVO;
 import com.spring.grouping.group.mapper.GroupMapper;
 import com.spring.grouping.mypage.domain.UserVO;
 import com.spring.grouping.work.mapper.WorkMapper;
 
-@Transactional
+
 @Service
 public class GroupService {
+
 	private static final Exception Exception = null;
-	
 	@Autowired
 	private GroupMapper groupMapper;
 	@Autowired
@@ -77,35 +73,19 @@ public class GroupService {
 	/**
 	 * 즐겨찾기 그룹 수정
 	 * @return
-	 * @throws MyTransactionException 
+	 * @throws MyException 
+	 *
 	 */
-	@Transactional(propagation = Propagation.REQUIRED)
-	public int updateFavoriteGroupList(String seq_grp_number, HttpSession session)  {
-			
-		try{
-			Map<String, Object> map = new HashMap<>();
-			map.put("seq_grp_number", seq_grp_number);
-			map.put("user_id", (String) session.getAttribute("user_id"));
-			groupMapper.updateFavoriteGroupList(map);
-			if (groupMapper.selectFavoriteGroupListCnt(map) > 5) {
-				throw Exception;
-
-			}
-			else
-				return 1;
-		}
-		catch (Exception e){
-			e.printStackTrace();
-			TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
-			return 0;
-		}
-		
-		
-
-			
-
-
+	public int updateFavoriteGroupList(String seq_grp_number, HttpSession session) {		
+				Map<String, Object> map = new HashMap<>();
+				map.put("seq_grp_number", seq_grp_number);
+				map.put("user_id", (String)session.getAttribute("user_id"));
+				if(groupMapper.selectFavoriteGroupListCnt(map)==5 && groupMapper.selectGroupFavoriteYN(map)==null)
+					return 0;
+				else
+					return groupMapper.updateFavoriteGroupList(map);
 	}
+
 
 	/**
 	 * 최근 사용한 그룹 수정

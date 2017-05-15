@@ -25,4 +25,5 @@ public interface GroupMapper {
 	public int selectMemberUser(Map<String, Object> map);
 	public int updateGroupUseHist(Map<String, Object> map);
 	public List<UserVO> selectMemberList(String seq_grp_number);
+	public String selectGroupFavoriteYN(Map<String, Object> map);
 }

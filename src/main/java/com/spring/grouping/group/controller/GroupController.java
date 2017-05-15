@@ -3,8 +3,13 @@ package com.spring.grouping.group.controller;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
 import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -63,7 +68,6 @@ public class GroupController {
 	@RequestMapping(value = "/selectGroupList.do")
 	public ModelAndView selectGroupList(HttpSession session) throws Exception{
 		ModelAndView mv = new ModelAndView();
-		System.out.println("요기는됨");
 		List<GroupVO> group = service.selectGroupList((String) session.getAttribute("user_id"));
 		mv.addObject("group", group);
 		mv.addObject("favorite_group", service.selectFavoriteGroupList((String) session.getAttribute("user_id")));
@@ -79,8 +83,15 @@ public class GroupController {
 	 */
 	@RequestMapping(value = "/updateFavoriteGroupListAjax.do")
 	@ResponseBody
-	public int updateFavoriteGroupList(String seq_grp_number, HttpSession session) {
-		return service.updateFavoriteGroupList(seq_grp_number, session);
+	public Object updateFavoriteGroupList(String seq_grp_number, HttpSession session) {
+	
+		if(service.updateFavoriteGroupList(seq_grp_number, session)==1){
+			return "{\"msg\":\"success\"}";
+		}
+		else
+		{
+			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
+		}
 	}
 
 	/**

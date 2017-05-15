@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
+
 <html>
 <head>
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
@@ -8,6 +10,7 @@
 <link rel="stylesheet" type="text/css" href="/grouping/resources/stylesheets/default.css">
 </head>
 <script>
+
 	/*
 		그룹 설정 중 즐겨찾기 버튼 눌렀을 때 즐겨찾기 반영하는 함수
 		트랜잭션을 이용해 Favorite추가 , Favorite 그룹 수가 5개 넘을 시 롤백
@@ -29,16 +32,17 @@
 			},
 			error : function(jsonData) {
 				alert("즐겨찾기는 최대 5개까지 설정 가능합니다.");
+				group_management();
 			}
 		});
 	}
+	
 	/*
 		그룹 설정 중 그룹리더일 때, 삭제 버튼 눌렀을 때 삭제 반영하는 함수	
 		Ajax
 		data : seq_grp_number -> String으로 전송 후 DB에서 삭제 처리
 		success : 그룹 관리 서브페이지 리로드
-	*/
-	
+	*/	
 	function deleteGroup(seq_grp_number) {
 		var con_test = confirm("그룹을 삭제합니다. 정말로 삭제하시겠습니까?");
 		if (con_test == true) {
@@ -131,7 +135,6 @@
 				</form>
 			</div>
 		</div>
-
 	</div>
 	<div class="col-md-9">
 		<div class="panel panel-default panel-table">
@@ -168,13 +171,14 @@
 												</button>
 											</td>
 										</c:when>
-										<c:otherwise>
+										<c:otherwise>										
 											<td class="favorite_td">
 												<button type="button" id="${grp.seq_grp_number}" 
 												onclick="updateFavoriteGroup(this.id)" class="btn btn-default btn-sm favorite-btn">
 													<span id="${grp.seq_grp_number}" class="glyphicon glyphicon-star-empty"></span>
 												</button>
 											</td>
+											
 										</c:otherwise>
 									</c:choose>
 									<td>${grp.grp_title}</td>
@@ -194,17 +198,13 @@
 												</button>
 											</c:otherwise>
 										</c:choose></td>
-
 								</tr>
 							</c:forEach>
 						</tbody>
 					</table>
 				</form>
-
 			</div>
-ㅓㄴ
 		</div>
-
 	</div>
 	<!-- 그룹 생성 모달 -->
 
